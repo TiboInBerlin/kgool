@@ -1,0 +1,58 @@
+body {
+    background-color: red;
+}
+
+h1 {
+    color: blue;
+}
+
+h3 {
+    color: green;
+}
+.signers-wrap {
+    display: grid;
+    height: auto;
+}
+
+.table-header1,
+.table-header2 {
+    background-color: #1b9af7;
+    font-size: 24px;
+    padding: 10px;
+    border: 1px solid black;
+    border-bottom: none;
+}
+
+.table-header2 {
+    border-left: none;
+}
+
+.list-signers {
+    justify-self: center;
+    display: grid;
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
+    margin: 20px;
+}
+
+.signers,
+.date-signature {
+    font-size: 24px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.signers:nth-child(odd) {
+    border-bottom: none;
+}
+.date-signature:nth-child(even) {
+    border-bottom: none;
+    border-left: none;
+}
+
+.signers:nth-last-child(2) {
+    border-bottom: 1px solid black;
+}
+.date-signature:last-child {
+    border-bottom: 1px solid black;
+}
