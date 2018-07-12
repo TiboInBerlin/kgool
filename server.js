@@ -27,10 +27,6 @@ app.use(
 
 app.set("view engine", "handlebars");
 
-app.get("/", (req, res) => {
-    console.log('hhhhhhhhhh');
-    res.render("register"); // when the user type "/register", user will be redirected to the register view
-});
 app.get("/home", (req, res) => {
     if (!req.session.loggedIn) {
         res.redirect("/login");
@@ -72,13 +68,13 @@ app.post("/home", (req, res) => {
 });
 
 app.get("/signed", (req, res) => {
-    if (!req.session.loggedIn) {
+    if (req.session.loggedIn == false) {
         res.redirect("/login");
     } else {
-        db.getSignature(req.session.signatureId).then(sign => {
-            console.log(sign.signature);
+        db.getSignature(req.session.userId).then(sign => { //we use here the userID because we always have it!
+            console.log(sign[0].signature); //we use sign[0] because the function getSignature will return an array (seed.js). we indeed want it to return an array and not an objectbecause it is easy to state if an array is zero or not while it is not so easy with an object.
             res.render("signed", {
-                signature: sign.signature
+                signature: sign[0].signature
             });
         });
     }
@@ -100,7 +96,9 @@ app.get("/signers", (req, res) => {
     }
 });
 
-
+app.get("/", (req, res) => {
+    res.render("register"); // when the user type "/register", user will be redirected to the register view
+});
 
 app.post("/", (req, res) => {
     //we will use the body parser to get the values of the form of the body
@@ -133,6 +131,7 @@ app.post("/", (req, res) => {
                         req.session.email = req.body.email;
                         req.session.hashedPassword = hashedPassword;
                         req.session.loggedIn = true;
+
                         res.redirect("/profile");
                     });
             })
@@ -142,8 +141,8 @@ app.post("/", (req, res) => {
     }
 });
 
-app.get("/login", (req, res) => {
-    if (!req.session.loggedIn) {
+app.get("/login", (req, res) => { //in the get, i ahve always to use a page! that s why: /login
+    if (req.session.loggedIn == false) {
         res.redirect("/login");
     } else {
         res.render("login");
@@ -151,7 +150,7 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-    var userInfo; //We create this variable in order to link it with the variabke results in our getEmail function.
+    var userInfo; //We create this variable in order to link it with the variable results in our getEmail function.
     //we will use the body parser to get the values of the form of the body
     if (req.body.email == "" || req.body.password == "") {
         res.redirect("/login"); // if the user has one empty field, we redirect user to register page
@@ -174,7 +173,17 @@ app.post("/login", (req, res) => {
                             req.session.email = userInfo.email;
                             req.session.hashedPassword = hashedPwd;
                             req.session.loggedIn = true;
+                            db.getSignature(req.session.userId).then((results)=>{
+                            if (results.length == 0) {
+                                req.session.signed = false; // I make his inout in order not to connect always with my database
+                                res.redirect("/home");
+                            }else{
+                            req.session.signed = true;
                             res.redirect("/signed");
+                            }
+
+                            });
+
                         } else {
                             res.redirect("/login");
                         }
@@ -330,6 +339,7 @@ app.post("/profile/edit", (req, res) => {
 
 app.get('/deleteSignature',(req,res)=>{
     db.deleteSignature(req.session.userId).then(()=>{
+        req.session.signed = false;
         res.redirect('/home');
     })
 })

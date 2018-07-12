@@ -19,16 +19,16 @@ exports.getSigners = function() {
         });
 };
 
-exports.getSignature = function(signatureId) {
+exports.getSignature = function(userId) {
     const q = `
 SELECT signature FROM signatures WHERE id = $1;
 `;
     //we use $1 to prevent from sql injections
     // we use `` in order to create multiple lines
-    const params = [signatureId];
+    const params = [userId];
 
     return db.query(q, params).then(results => {
-        return results.rows[0];
+        return results.rows;
     });
 };
 
