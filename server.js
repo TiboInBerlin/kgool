@@ -28,7 +28,7 @@ app.use(
 app.set("view engine", "handlebars");
 
 app.get("/home", (req, res) => {
-    if (!req.session.loggedIn) {
+    if (req.session.loggedIn != true) {
         res.redirect("/login");
     } else {
         res.render("home", {
@@ -60,7 +60,7 @@ app.post("/home", (req, res) => {
             //what did we do on line above? we are taking the data from the session that we created in this page in post/register
             .then(signature => {
                 //res.json(newUser);
-                req.session.signatureId = signature.id;
+                req.session.signed = true;
                 //console.log(newUser);
                 res.redirect("/signed");
             });
@@ -68,11 +68,12 @@ app.post("/home", (req, res) => {
 });
 
 app.get("/signed", (req, res) => {
-    if (req.session.loggedIn == false) {
+    if (req.session.loggedIn != true) {
         res.redirect("/login");
     } else {
         db.getSignature(req.session.userId).then(sign => { //we use here the userID because we always have it!
-            console.log(sign[0].signature); //we use sign[0] because the function getSignature will return an array (seed.js). we indeed want it to return an array and not an objectbecause it is easy to state if an array is zero or not while it is not so easy with an object.
+console.log(req.session.userId);
+            console.log(sign); //we use sign[0] because the function getSignature will return an array (seed.js). we indeed want it to return an array and not an objectbecause it is easy to state if an array is zero or not while it is not so easy with an object.
             res.render("signed", {
                 signature: sign[0].signature
             });
@@ -83,7 +84,7 @@ app.get("/signed", (req, res) => {
 });
 
 app.get("/signers", (req, res) => {
-    if (!req.session.loggedIn) {
+    if (req.session.loggedIn != true) {
         res.redirect("/login");
     } else {
         db.returnUsers().then(allUsers => {
@@ -97,6 +98,7 @@ app.get("/signers", (req, res) => {
 });
 
 app.get("/", (req, res) => {
+    req.session.loggedIn != true;
     res.render("register"); // when the user type "/register", user will be redirected to the register view
 });
 
@@ -142,7 +144,7 @@ app.post("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => { //in the get, i ahve always to use a page! that s why: /login
-    if (req.session.loggedIn == false) {
+    if (req.session.loggedIn != true) {
         res.redirect("/login");
     } else {
         res.render("login");
@@ -153,6 +155,7 @@ app.post("/login", (req, res) => {
     var userInfo; //We create this variable in order to link it with the variable results in our getEmail function.
     //we will use the body parser to get the values of the form of the body
     if (req.body.email == "" || req.body.password == "") {
+        //req.session.loggedIn = false;
         res.redirect("/login"); // if the user has one empty field, we redirect user to register page
     } else {
         db.getEmail(req.body.email).then(results => {
@@ -168,12 +171,13 @@ app.post("/login", (req, res) => {
                         if (checked) {
                             console.log(checked);
                             req.session.userId = userInfo.id;
-                            req.session.firstname = userInfo.firstname;
-                            req.session.lastname = userInfo.lastname;
+                            req.session.firstname = userInfo.first_name;
+                            req.session.lastname = userInfo.last_name;
                             req.session.email = userInfo.email;
                             req.session.hashedPassword = hashedPwd;
                             req.session.loggedIn = true;
                             db.getSignature(req.session.userId).then((results)=>{
+                                console.log(results);
                             if (results.length == 0) {
                                 req.session.signed = false; // I make his inout in order not to connect always with my database
                                 res.redirect("/home");
@@ -194,11 +198,11 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-    if (req.session.loggedIn) {
+    if (req.session.loggedIn = true) {
         //We write this in order to check that the user is well logged in! we did that for all pages!
         res.render("profile");
     } else {
-        res.redirect("/");
+        res.redirect("/login");
     }
 });
 
@@ -257,7 +261,7 @@ app.post("/profile/edit", (req, res) => {
         req.body.city == "" &&
         req.body.url == ""
     ) {
-        res.redirect("/signers");
+        res.redirect("/signed");
     } else {
         if (!req.body.firstname == "") {
             req.session.firstname = req.body.firstname;

@@ -21,7 +21,7 @@ exports.getSigners = function() {
 
 exports.getSignature = function(userId) {
     const q = `
-SELECT signature FROM signatures WHERE id = $1;
+SELECT signature FROM signatures WHERE user_id = $1;
 `;
     //we use $1 to prevent from sql injections
     // we use `` in order to create multiple lines

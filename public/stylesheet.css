@@ -3,17 +3,39 @@ body {
     display: grid;
 }
 
+#canvas{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+}
+
 h1 {
     color: blue;
     text-align: center;
     font-family: "Comic Sans MS";
 }
 
-h3 {
-    color: green;
+h4 {
+    color: black;
+    text-align: center;
+    font-family: "Comic Sans MS";
 }
 
-#homeimage {
+p{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+a{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.homeimage {
     border-radius: 50%;
     margin-bottom: 20px;
     display: block;
@@ -27,26 +49,40 @@ h3 {
     margin-right: auto;
 }
 
+
+
 #firstname {
     width: 200px;
     height: 50px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: "Comic Sans MS"
 }
 
 #lastname {
     width: 200px;
     height: 50px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: "Comic Sans MS"
 }
 
 #email {
     margin-top: 20px;
     width: 200px;
     height: 50px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: "Comic Sans MS"
 }
 
 #password {
     margin-top: 20px;
     width: 200px;
     height: 50px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: "Comic Sans MS"
 }
 
 #logintext {
@@ -120,6 +156,10 @@ h3 {
     margin-bottom: 5px;
 }
 
+#logout{
+    margin-top: 5px;
+}
+
 #passwordlogin {
     display: block;
     margin-left: auto;
@@ -128,6 +168,12 @@ h3 {
 }
 
 #signatureimage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.imagehome{
     display: block;
     margin-left: auto;
     margin-right: auto;
