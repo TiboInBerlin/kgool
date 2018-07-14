@@ -196,6 +196,15 @@ a{
 .table-header2 {
     border-left: none;
 }
+ul {
+    margin: 0 auto;
+    text-align: center;
+}
+
+li {
+    display: inline-block;
+    vertical-align: top;
+}
 
 .list-signers {
     justify-self: center;

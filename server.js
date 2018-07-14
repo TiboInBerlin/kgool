@@ -71,8 +71,9 @@ app.get("/signed", (req, res) => {
     if (req.session.loggedIn != true) {
         res.redirect("/login");
     } else {
-        db.getSignature(req.session.userId).then(sign => { //we use here the userID because we always have it!
-console.log(req.session.userId);
+        db.getSignature(req.session.userId).then(sign => {
+            //we use here the userID because we always have it!
+            console.log(req.session.userId);
             console.log(sign); //we use sign[0] because the function getSignature will return an array (seed.js). we indeed want it to return an array and not an objectbecause it is easy to state if an array is zero or not while it is not so easy with an object.
             res.render("signed", {
                 signature: sign[0].signature
@@ -143,7 +144,8 @@ app.post("/", (req, res) => {
     }
 });
 
-app.get("/login", (req, res) => { //in the get, i ahve always to use a page! that s why: /login
+app.get("/login", (req, res) => {
+    //in the get, i ahve always to use a page! that s why: /login
     if (req.session.loggedIn != true) {
         res.redirect("/login");
     } else {
@@ -176,18 +178,18 @@ app.post("/login", (req, res) => {
                             req.session.email = userInfo.email;
                             req.session.hashedPassword = hashedPwd;
                             req.session.loggedIn = true;
-                            db.getSignature(req.session.userId).then((results)=>{
-                                console.log(results);
-                            if (results.length == 0) {
-                                req.session.signed = false; // I make his inout in order not to connect always with my database
-                                res.redirect("/home");
-                            }else{
-                            req.session.signed = true;
-                            res.redirect("/signed");
-                            }
-
-                            });
-
+                            db
+                                .getSignature(req.session.userId)
+                                .then(results => {
+                                    console.log(results);
+                                    if (results.length == 0) {
+                                        req.session.signed = false; // I make his inout in order not to connect always with my database
+                                        res.redirect("/home");
+                                    } else {
+                                        req.session.signed = true;
+                                        res.redirect("/signed");
+                                    }
+                                });
                         } else {
                             res.redirect("/login");
                         }
@@ -198,7 +200,7 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-    if (req.session.loggedIn = true) {
+    if ((req.session.loggedIn = true)) {
         //We write this in order to check that the user is well logged in! we did that for all pages!
         res.render("profile");
     } else {
@@ -226,12 +228,18 @@ app.post("/profile", (req, res) => {
 
 app.get("/signers/:cityName", (req, res) => {
     //we use : in order to make a dynamic link so that we store each different city in a different page.
-    var cityName = req.params.cityName; //I use this to make a query to database
-    db.getSignersByCityName(cityName).then(citySigners => {
-        res.render("city", {
-            content: citySigners
+    if (req.session.loggedIn != true) {
+        res.redirect("/login");
+    } else {
+        var cityName = req.params.cityName; //I use this to make a query to database
+        db.getSignersByCityName(cityName).then(citySigners => {
+            res.render("city", {
+                layout: "main",
+                content: citySigners,
+                length: citySigners.length
+            });
         });
-    });
+    }
 });
 
 app.get("/profile/edit", (req, res) => {
@@ -341,12 +349,12 @@ app.post("/profile/edit", (req, res) => {
     }
 });
 
-app.get('/deleteSignature',(req,res)=>{
-    db.deleteSignature(req.session.userId).then(()=>{
+app.get("/deleteSignature", (req, res) => {
+    db.deleteSignature(req.session.userId).then(() => {
         req.session.signed = false;
-        res.redirect('/home');
-    })
-})
+        res.redirect("/home");
+    });
+});
 
 app.listen(process.env.PORT || 8080, () => {
     console.log("listening to petition...");

@@ -93,7 +93,7 @@ VALUES($1, $2, $3, $4) RETURNING *
 
 exports.getSignersByCityName = function(cityName) {
     const q =
-        "select users.first_name || ' ' || users.last_name AS userinfo, user_profiles.age, user_profiles.url from users left join user_profiles on user_profiles.user_id = users.id where user_profiles.city = $1;";
+        "select users.first_name, users.last_name, user_profiles.age, user_profiles.url from users left join user_profiles on user_profiles.user_id = users.id where user_profiles.city = $1;";
     const params = [cityName];
     return db.query(q, params).then(results => {
         return results.rows;
