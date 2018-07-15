@@ -197,13 +197,17 @@ a{
     border-left: none;
 }
 ul {
-    margin: 0 auto;
-    text-align: center;
+    display: flex;
+    min-height: 25vh;
+    flex-direction: row;
+    justify-content: flex-start;
+
 }
 
 li {
     display: inline-block;
     vertical-align: top;
+    margin-right: 1vh;
 }
 
 .list-signers {
