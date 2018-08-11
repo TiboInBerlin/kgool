@@ -42,7 +42,7 @@ app.get("/home", (req, res) => {
 
 app.get("/", (req, res) => {
     req.session.loggedIn != true;
-    res.render("register"); // when the user type "/register", user will be redirected to the register view
+    res.render("home"); // when the user type "/register", user will be redirected to the register view
 });
 
 
