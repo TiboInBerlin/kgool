@@ -1,11 +1,29 @@
+<header>
+<img src="./images/Kgool-logo2.png" alt="Kgool Logo" class ="homeimage" />
 
-<h1>Would you like to tell us more about yourself?</h1>
-
+</header>
+<div class="navandmain">
+<nav>
+<a id="customerinfo" href="/kundenInformation">Information</a> <br>
+<a id="furtherinfo" href="/weitereInfo">Weitere Information</a> <br>
+<a id="favoritesinfo" href="/Favoriten">Interessenten</a> <br>
+<a id="customerinfo" href="/presentationProducerSide">Präsentation von meiner Firma</a>
+</nav>
+<main>
 <form method="post">
-    <input type="text" name="age" placeholder="age">
-    <input type="text" name="city" placeholder="city">
-    <input type="text" name="url" placeholder="homepage">
-    <button id="button" type="submit">Continue</button>
+    <h3>Kundeninformation page will be display all info herunder and will have a link to edit all info"</h3>
+    <p>Nachname: <input type="text" name="lastname" placeholder="Nachname" id ="lastname"> </p>
+    <p>E-mail: <input type="email" name="email" placeholder="E-mail" id ="email"> </p>
+    <p>Benutzername: <input type="loginname" name="loginname" placeholder="Benutzername" id ="loginname"> </p>
+    <p>Passwort: <input type="password" name="password" placeholder="password" value="" id ="password"> </p>
+    <p>Firmenname: <input type="companyname" name="companyname" placeholder="Firmenname" id ="companyname"> </p>
+    <p>Steuernummer: <input type="steuernummer" name="steuernummer" placeholder="Steuernummer" id ="steuernummer"> </p>
 </form>
 
-{{>logout}}
+</main>
+</div>
+
+<footer>
+    <p>Über Uns / Datenschutz / Contact / Einwilligungsfreigabe {{>logout}}<p>
+
+</footer>

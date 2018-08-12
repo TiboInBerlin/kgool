@@ -1,16 +1,26 @@
 
-<h1>Please register</h1>
+<header>
+<img src="./images/Kgool-logo2.png" alt="Kgool Logo" class ="homeimage" />
 
-<img src="base.jpg" alt="base jumpers from cliff" width="400" height="300" class="homeimage"/>
+</header>
 
+<main>
+<h1 class="registrierung">Registrierung</h1>
+    <form method="post" class="customerdata">
+        <p>Vorname: <input type="text" name="firstname" placeholder="Vorname" id="firstname"> </p>
+        <p>Nachname: <input type="text" name="lastname" placeholder="Nachname" id ="lastname"> </p>
+        <p>E-mail: <input type="email" name="email" placeholder="E-mail" id ="email"> </p>
+        <p>Benutzername: <input type="loginname" name="loginname" placeholder="Benutzername" id ="loginname"> </p>
+        <p>Passwort: <input type="password" name="password" placeholder="password" value="" id ="password"> </p>
+    </br> </br>
+        <button id="button" type="submit">Registrieren</button>
+    </form>
 
-<form method="post" class="signerdata">
-    <input type="text" name="firstname" placeholder="firstname" id="firstname">
-    <input type="text" name="lastname" placeholder="lastname" id ="lastname">
-    <input type="email" name="email" placeholder="email" id ="email">
-    <input type="password" name="password" placeholder="password" value="" id ="password">
-</br> </br>
-    <button id="button" type="submit">SIGN UP</button>
-</form>
+    <p id="logintext">Bereits registriert? Melde dich <a href="/login">hier</a></p>
 
-<p id="logintext">If you are already a member, please <a href="/login">log in</a></p>
+</main>
+
+<footer>
+    <p>Über Uns / Datenschutz / Contact / Einwilligungsfreigabe {{>logout}}<p>
+
+</footer>

@@ -1,15 +1,26 @@
-<h1>Edit your profile!</h1>
+
+<header>
+<img src="./images/Kgool-logo2.png" alt="Kgool Logo" class ="homeimage" />
+
+</header>
+
+<main>
+<h1>Bitte trag deine Daten ein</h1>
+    <form method="post" class="customerdata">
+        <p>Vorname: <input type="text" name="firstname" placeholder="Vorname" id="firstname"> </p>
+        <p>Nachname: <input type="text" name="lastname" placeholder="Nachname" id ="lastname"> </p>
+        <p>E-mail: <input type="email" name="email" placeholder="E-mail" id ="email"> </p>
+        <p>Telefon: <input type="number" name="telefon" placeholder="Telefon" id ="telefon"> </p>
+        <p>Kommentar: <input type="text" name="kommentar" placeholder="Kommentar" id ="kommentar"> </p>
+
+    </br> </br>
+        <button id="button" type="submit">Info an Hersteller senden</button>
+    </form>
 
 
+</main>
 
-<form method="post">
-    <input type="text" name="firstname" placeholder="{{userData.first_name}}">
-    <input type="text" name="lastname" placeholder="{{userData.last_name}}">
-    <input type="text" name="email" placeholder="{{userData.email}}">
-    <input type="password" name="password" placeholder="password">
-    <input type="text" name="age" placeholder="{{userData.age}}">
-    <input type="text" name="city", placeholder="{{userData.city}}">
-    <input type="text" name="url" placeholder="{{userData.url}}">
-<br> </br>
-    <button id="button" type="submit">SAVE - CONTINUE</button>
-</form>
+<footer>
+    <p>Über Uns / Datenschutz / Contact / Einwilligungsfreigabe {{>logout}}<p>
+
+</footer>

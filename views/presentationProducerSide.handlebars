@@ -1,11 +1,26 @@
 
-<h1>Would you like to tell us more about yourself?</h1>
+<header>
+<img src="./images/Kgool-logo2.png" alt="Kgool Logo" class ="homeimage" />
 
+</header>
+
+<main>
+    <h1>Ihre persönliche Präsentation Seite</h1>
 <form method="post">
-    <input type="text" name="age" placeholder="age">
-    <input type="text" name="city" placeholder="city">
-    <input type="text" name="url" placeholder="homepage">
-    <button id="button" type="submit">Continue</button>
+    <p>Logo</p>
+    <p>Anschrift: <input type="text" name="lastname" placeholder="Nachname" id ="lastname"> </p>
+    <p>Kontakt: <input type="text" name="kontakt" placeholder="Kontakt" id ="kontakt"> </p>
+    <p>GoogleMap</p>
+    <p>Über Uns: <input type="text" name="uberuns" placeholder="Über Uns" id ="uberuns"> </p>
+    <p>Produktkategorien: <input type="text" name="produktkategorien" placeholder="Produktkategorien" value="" id ="Produktkategorien"> </p>
+    <p>Stichworte: <input type="text" name="companyname" placeholder="Stichworte" id ="stichworte"> </p>
+    <p>Katalog herunterladen</p>
 </form>
 
-{{>logout}}
+</main>
+
+
+<footer>
+    <p>Über Uns / Datenschutz / Contact / Einwilligungsfreigabe {{>logout}}<p>
+
+</footer>

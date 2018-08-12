@@ -1,11 +1,20 @@
+<header>
+<img src="./images/Kgool-logo2.png" alt="Kgool Logo" class ="homeimage" />
 
-<h1>Please, log in!</h1>
+</header>
 
+<main>
+            <h1>Meld dich an!</h1>
+            <div class="loginbox">
+            <form method="post">
+                <input id="usernamelogin" type="text" name="username" placeholder="Benutzername">
+            <input id="passwordlogin" type="password" name="password" placeholder="Passwort">
+            <button id="button" type="submit">Log in</button>
+            </form>
+        </div>
 
-<form method="post">
-    <input id="emaillogin" type="email" name="email" placeholder="email">
-<input id="passwordlogin" type="password" name="password" placeholder="password">
-<button id="button" type="submit">Log in</button>
-</form>
+</main>
+        <footer>
+            <p>Über Uns / Datenschutz / Contact / Einwilligungsfreigabe {{>logout}}<p>
 
-<p id="registertext">If you are not a member, please <a href="/">register</a></p>
+        </footer>
