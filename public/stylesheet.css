@@ -1,13 +1,13 @@
 body {
     display: flex;
-    background-color: tomato;
+    background-color: white;
     flex-direction: column;
     justify-content: flex-start;
     font-family: tahoma;
 }
 
 header {
-    background-color: blue;
+
     height: 21vh;
     display: flex;
     flex-direction: row;
@@ -21,20 +21,20 @@ justify-content: flex-start;
 }
 
 nav{
-    background-color: turquoise;
+
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
 }
 
 main {
-    background-color: green;
+
     height: 70vh;
     flex-grow:1;
 }
 
 footer {
-    background-color: violet;
+
     height: 10vh;
 }
 
@@ -104,18 +104,20 @@ button:active {
 .homeimage {
     width: 50vh;
     height: 20vh;
+    display: flex;
+    justify-content: center;
 }
 
 .loginlink {
-    color: white;
+
 }
 
 .registeruserlink {
-    color: white;
+
 }
 
 .registerproducerlink {
-    color: white
+
 }
 
 .loginbox{

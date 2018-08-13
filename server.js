@@ -28,7 +28,7 @@ app.use(
 app.set("view engine", "handlebars");
 
 app.get("/", (req, res) => {
-        req.session.loggedIn != true;
+    req.session.loggedIn != true;
     res.render("welcome"); // when the user type "/register", user will be redirected to the register view
 });
 
@@ -47,15 +47,6 @@ app.get("/welcome", (req, res) => {
     //db.getSigners()
 });
 
-app.get("/login", (req, res) => {
-    //in the get, i ahve always to use a page! that s why: /login
-    if (req.session.loggedIn != true) {
-        res.render("login");
-    } else {
-        res.render("login");
-    }
-});
-
 app.get("/registerCustomer", (req, res) => {
     //in the get, i ahve always to use a page! that s why: /login
     if (req.session.loggedIn != true) {
@@ -65,12 +56,127 @@ app.get("/registerCustomer", (req, res) => {
     }
 });
 
+app.post("/registerCustomer", (req, res) => {
+    //we will use the body parser to get the values of the form of the body
+    if (
+        req.body.firstname == "" ||
+        req.body.lastname == "" ||
+        req.body.email == "" ||
+        req.body.benutzername == "" ||
+        req.body.password == ""
+    ) {
+        res.redirect("/"); // if the user has one empty field, we redirect user to register page
+    } else {
+        //first we have to do is hashing the password of the user
+        //we access the hashPassword function from bscrypt file and we use .then since the function was promisified in bsrypt.js
+        bcrypt
+            .hashPassword(req.body.password)
+            .then(hashedPassword => {
+                // we create here the hashedpassword value in order to receive the returned value of the function hashPassword
+                db
+                    .createUser(
+                        req.body.firstname,
+                        req.body.lastname,
+                        req.body.email,
+                        req.body.benutzername,
+                        hashedPassword
+                    )
+                    .then(results => {
+                        //before sending the user to homepage, we want to create a session in order to encrypt the user's data because these data will be available on the client side, which is not safe.
+                        req.session.userId = results.id;
+                        req.session.firstname = req.body.firstname;
+                        req.session.lastname = req.body.lastname;
+                        req.session.email = req.body.email;
+                        req.session.benutzername = req.body.benutzername;
+                        req.session.hashedPassword = hashedPassword;
+                        req.session.loggedIn = true;
+
+                        res.redirect("/profileCustomer");
+                    });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+});
+
 app.get("/registerProducer", (req, res) => {
     //in the get, i ahve always to use a page! that s why: /login
     if (req.session.loggedIn != true) {
         res.render("registerProducer");
     } else {
         res.render("registerProducer");
+    }
+});
+
+app.post("/registerProducer", (req, res) => {
+    //we will use the body parser to get the values of the form of the body
+    if (
+        req.body.firstname == "" ||
+        req.body.lastname == "" ||
+        req.body.email == "" ||
+        req.body.benutzername == "" ||
+        req.body.password == ""
+    ) {
+        res.redirect("/"); // if the user has one empty field, we redirect user to register page
+    } else {
+        //first we have to do is hashing the password of the user
+        //we access the hashPassword function from bscrypt file and we use .then since the function was promisified in bsrypt.js
+        bcrypt
+            .hashPassword(req.body.password)
+            .then(hashedPassword => {
+                // we create here the hashedpassword value in order to receive the returned value of the function hashPassword
+                db
+                    .createUser(
+                        req.body.firstname,
+                        req.body.lastname,
+                        req.body.email,
+                        req.body.benutzername,
+                        hashedPassword
+                    )
+                    .then(results => {
+                        //before sending the user to homepage, we want to create a session in order to encrypt the user's data because these data will be available on the client side, which is not safe.
+                        req.session.userId = results.id;
+                        /*req.session.firstname = req.body.firstname;
+                        req.session.lastname = req.body.lastname;
+                        req.session.email = req.body.email;
+                        req.session.benutzername = req.body.benutzername;
+                        req.session.hashedPassword = hashedPassword;
+                        req.session.loggedIn = true;*/
+                        req.session.firmenname = req.body.firmenname;
+                        req.session.steuername = req.body.steuernummer;
+                        db
+                            .createProducer(
+                                req.body.firmenname,
+                                req.body.steuernummer
+                            )
+                            .then(results => {
+                                req.session.firstname = req.body.firstname;
+                                req.session.lastname = req.body.lastname;
+                                req.session.email = req.body.email;
+                                req.session.benutzername =
+                                    req.body.benutzername;
+                                req.session.hashedPassword = hashedPassword;
+                                req.session.loggedIn = true;
+                                req.session.firmenname = req.body.firmenname;
+                                req.session.steuernummer =
+                                    req.body.steuernummer;
+                                res.redirect("/profileProducer");
+                            });
+                    });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+});
+
+app.get("/login", (req, res) => {
+    //in the get, i ahve always to use a page! that s why: /login
+    if (req.session.loggedIn != true) {
+        res.render("login");
+    } else {
+        res.render("login");
     }
 });
 
