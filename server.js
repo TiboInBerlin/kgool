@@ -216,6 +216,53 @@ app.post("/login", (req, res) => {
     }
 });
 
+app.get("/loginProducer", (req, res) => {
+    //in the get, i ahve always to use a page! that s why: /login
+    if (req.session.loggedIn != true) {
+        res.render("login");
+    } else {
+        res.render("login");
+    }
+});
+
+app.post("/loginProducer", (req, res) => {
+    var userInfo; //We create this variable in order to link it with the variable results in our getEmail function.
+    //we will use the body parser to get the values of the form of the body
+    if (req.body.benutzername == "" || req.body.password == "") {
+        //req.session.loggedIn = false;
+        res.redirect("/loginProducer"); // if the user has one empty field, we redirect user to register page
+    } else {
+        db.getBenutzername(req.body.benutzername).then(results => {
+            //remember: the result is ALWAYS an array!
+            if (results.length == 0) {
+                res.redirect("/loginProducer");
+            } else {
+                userInfo = results[0];
+                const hashedPwd = userInfo.hashed_password; //result is an array and hashed password is the fifth element of this array
+                bcrypt
+                    .checkPassword(req.body.password, hashedPwd)
+                    .then(checked => {
+                        if (checked) {
+                            console.log(checked);
+                            req.session.userId = userInfo.id;
+                            req.session.firstname = userInfo.first_name;
+                            req.session.lastname = userInfo.last_name;
+                            req.session.email = userInfo.email;
+                            req.session.benutzername = userInfo.benutzername;
+                            req.session.hashedPassword = hashedPwd;
+                            req.session.firmenname = userInfo.firmenname;
+                            req.session.steuernummer = userInfo.steuernummer
+                            req.session.loggedIn = true;
+                            res.redirect("/profileProducer")
+                        } else {
+                            res.redirect("/loginProducer");
+                        }
+                    });
+            }
+        });
+    }
+});
+
 app.get("/profileProducer", (req, res) => {
     //in the get, i ahve always to use a page! that s why: /login
     if (req.session.loggedIn != true) {
