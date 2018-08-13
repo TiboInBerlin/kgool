@@ -10,10 +10,10 @@
 </nav>
 <main>
 <form method="post">
-    <h3>Kundeninformation page will be display all info herunder and will have a link to edit all info"</h3>
-    <p>Nachname: <input type="text" name="lastname" placeholder="Nachname" id ="lastname"> </p>
-    <p>E-mail: <input type="email" name="email" placeholder="E-mail" id ="email"> </p>
-    <p>Benutzername: <input type="text" name="loginname" placeholder="Benutzername" id ="loginname"> </p>
+    <p>Vorname: <input type="text" name="firstname" placeholder="{{userData.vorname}}" id="firstname"> </p>
+    <p>Nachname: <input type="text" name="lastname" placeholder="{{userData.nachname}}" id ="lastname"> </p>
+    <p>E-mail: <input type="email" name="email" placeholder="{{userData.email}}" id ="email"> </p>
+    <p>Benutzername: <input type="text" name="benutzername" placeholder="{{userData.benutzername}}" id ="loginname"> </p>
     <p>Passwort: <input type="password" name="password" placeholder="password" value="" id ="password"> </p>
 </br> </br>
     <button id="button" type="submit">Daten ändern</button>

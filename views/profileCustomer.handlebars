@@ -4,17 +4,18 @@
 </header>
 <div class="navandmain">
 <nav>
-<a id="customerinfo" href="/kundenInformationCustomer">Information</a> <br>
+<a id="customerinfo" href="/profileCustomer">Information</a> <br>
 <a id="favoritessuppliersinfo" href="/lieblingsfirmen">Meine lieblingsfirmen</a> <br>
 <a id="searchlink" href="/welcome">Firma Suchen</a>
 </nav>
 <main>
-<form method="post">
-    <h3>Kundeninformation page will be display all info herunder and will have a link to edit all info"</h3>
-    <p>Nachname: <input type="text" name="lastname" placeholder="Nachname" id ="lastname"> </p>
-    <p>E-mail: <input type="email" name="email" placeholder="E-mail" id ="email"> </p>
-    <p>Benutzername: <input type="loginname" name="loginname" placeholder="Benutzername" id ="loginname"> </p>
-    <p>Passwort: <input type="password" name="password" placeholder="password" value="" id ="password"> </p>
+<form method="get">
+    <h3>PROFILE CUSTOMER: Kundeninformation page will be display all info herunder and will have a link to edit all info"</h3>
+<a id="editprofilecustomerlink" href="/editProfileCustomer">Edit Profile Customer</a>
+    <p>Vorname: {{userData.vorname}} </p>
+    <p>Nachname: {{userData.nachname}} </p>
+    <p>email: {{userData.email}} </p>
+    <p>Benutzername: {{userData.benutzername}} </p>
 </form>
 
 </main>

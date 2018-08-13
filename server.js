@@ -200,13 +200,13 @@ app.post("/login", (req, res) => {
                         if (checked) {
                             console.log(checked);
                             req.session.userId = userInfo.id;
-                            req.session.firstname = userInfo.first_name;
-                            req.session.lastname = userInfo.last_name;
+                            req.session.firstname = userInfo.firstname;
+                            req.session.lastname = userInfo.lastname;
                             req.session.email = userInfo.email;
                             req.session.benutzername = userInfo.benutzername;
                             req.session.hashedPassword = hashedPwd;
                             req.session.loggedIn = true;
-                            res.redirect("/profileCustomer")
+                            res.redirect("/profileCustomer");
                         } else {
                             res.redirect("/login");
                         }
@@ -251,9 +251,9 @@ app.post("/loginProducer", (req, res) => {
                             req.session.benutzername = userInfo.benutzername;
                             req.session.hashedPassword = hashedPwd;
                             req.session.firmenname = userInfo.firmenname;
-                            req.session.steuernummer = userInfo.steuernummer
+                            req.session.steuernummer = userInfo.steuernummer;
                             req.session.loggedIn = true;
-                            res.redirect("/profileProducer")
+                            res.redirect("/profileProducer");
                         } else {
                             res.redirect("/loginProducer");
                         }
@@ -261,6 +261,101 @@ app.post("/loginProducer", (req, res) => {
             }
         });
     }
+});
+
+app.get("/editProfileCustomer", (req, res) => {
+    db.getUserInfo(req.session.userId).then(results => {
+        //we put here all the data of the users in our different fields (because placeholder is not a solution) and we do that before the render
+        req.session.firstname = results.firstname;
+        req.session.lastname = results.lastname;
+        req.session.email = results.email;
+        req.session.benutzername = results.benutzername;
+        req.session.hashedPassword = results.hashed_password;
+        res.render("editProfileCustomer", {
+            userData: results
+        });
+    });
+});
+
+app.post("/editProfileCustomer", (req, res) => {
+    if (
+        //these names have to be the same as the names in our edit handlebars
+        req.body.firstname == "" &&
+        req.body.lastname == "" &&
+        req.body.email == "" &&
+        req.body.benutzername == "" &&
+        req.body.password == ""
+    ) {
+        res.redirect("/profileCustomer");
+    } else {
+        if (!req.body.firstname == "") {
+            req.session.firstname = req.body.firstname;
+        }
+        if (!req.body.lastname == "") {
+            req.session.lastname = req.body.lastname;
+        }
+        if (!req.body.email == "") {
+            req.session.email = req.body.email;
+        }
+        if (!req.body.benutzername == "") {
+            req.session.benutzername = req.body.benutzername;
+        }
+        if (!req.body.password == "") {
+            //we hash the new password of the user: the variable result represents here the hashed password
+            bcrypt
+                .hashPassword(req.body.password)
+                .then(result => {
+                    //... and we add this hashed pwd to the result!
+                    req.session.hashedPassword = result;
+                    //problem: the function hashPassword is asynchronous. so we insert a then here:
+                })
+                .then(() => {
+                    db
+                        .updateUsers(
+                            req.session.userId,
+                            req.session.firstname,
+                            req.session.lastname,
+                            req.session.email,
+                            req.session.benutzername,
+                            req.session.hashedPassword
+                        )
+                        //we insert here a then because we write two functions for two different tables.
+                        .then(() => {
+                            //we wil redirect the user to the edit page so that he can see his new data
+                            res.redirect("/profileCustomer");
+                        });
+                });
+        } else {
+            //we create a else because in case the user did not change the password, we do not have any problem of asynchronousity and do not need any fucking then!
+            db
+                .updateUsers(
+                    req.session.userId,
+                    req.session.firstname,
+                    req.session.lastname,
+                    req.session.email,
+                    req.session.benutzername,
+                    req.session.hashedPassword
+                )
+                .then(() => {
+                    //we wil redirect the user to the edit page so that he can see his new data
+                    res.redirect("/profileCustomer");
+                });
+        }
+    }
+});
+
+app.get("/profileCustomer", (req, res) => {
+    db.getUserInfo(req.session.userId).then(results => {
+        //we put here all the data of the users in our different fields (because placeholder is not a solution) and we do that before the render
+        req.session.firstname = results.first_name;
+        req.session.lastname = results.last_name;
+        req.session.email = results.email;
+        req.session.benutzername = results.benutzername;
+        req.session.hashedPassword = results.hashed_password;
+        res.render("profileCustomer", {
+            userData: results
+        });
+    });
 });
 
 app.get("/profileProducer", (req, res) => {
@@ -305,15 +400,6 @@ app.get("/presentationProducerSide", (req, res) => {
         res.render("presentationProducerSide");
     } else {
         res.render("presentationProducerSide");
-    }
-});
-
-app.get("/profileCustomer", (req, res) => {
-    //in the get, i ahve always to use a page! that s why: /login
-    if (req.session.loggedIn != true) {
-        res.render("profileCustomer");
-    } else {
-        res.render("profileCustomer");
     }
 });
 
