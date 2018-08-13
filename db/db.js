@@ -37,3 +37,11 @@ exports.createProducer = function(firmenname, steuernummer) {
         return results.rows[0];
     });
 };
+
+exports.getBenutzername = function(benutzername) {
+    const q = `SELECT id,benutzername,hashed_password FROM users WHERE benutzername= $1;`;
+    const params = [benutzername];
+    return db.query(q, params).then(results => {
+        return results.rows;
+    });
+};
