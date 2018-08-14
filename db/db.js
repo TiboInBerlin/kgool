@@ -26,19 +26,6 @@ VALUES($1, $2, $3, $4, $5) RETURNING *
     });
 };
 
-exports.createProducer = function(id, firmenname, steuernummer) {
-    const q = `
-    INSERT INTO producers (user_id, Firmenname, Steuernummer)
-    VALUES($1, $2, $3) RETURNING *
-    `;
-    const params = [id, firmenname, steuernummer];
-
-    return db.query(q, params).then(results => {
-
-        return results.rows[0];
-    });
-};
-
 exports.getBenutzername = function(benutzername) {
     const q = `SELECT id,benutzername,hashed_password FROM users WHERE benutzername= $1;`;
     const params = [benutzername];
@@ -79,8 +66,7 @@ UPDATE users SET vorname = $2, nachname = $3, email = $4, benutzername = $5, has
 };
 
 exports.getUserInfo = function(id) {
-    const q =
-        "select * from users where id = $1;";
+    const q = "select * from users where id = $1;";
     const params = [id];
     return db.query(q, params).then(results => {
         return results.rows[0];
@@ -96,7 +82,6 @@ exports.getProducerInfo = function(userId) {
     });
 };
 
-
 exports.getEmail = function(email) {
     const q = `SELECT id,email,hashed_password FROM users WHERE email= $1;`;
     const params = [email];
@@ -105,12 +90,24 @@ exports.getEmail = function(email) {
     });
 };
 
+exports.createProducer = function(id, firmenname, steuernummer) {
+    const q = `
+    INSERT INTO producers (user_id, Firmenname, Steuernummer)
+    VALUES($1, $2, $3) RETURNING *
+    `;
+    const params = [id, firmenname, steuernummer];
+
+    return db.query(q, params).then(results => {
+        return results.rows[0];
+    });
+};
+
 exports.updateProducerProfile = function(userId, firmenname, steuernummer) {
     const q = `
-    INSERT INTO producers (user_id,firmenname, steuernummer)
+    INSERT INTO producers (user_id,Firmenname, Steuernummer)
     VALUES ($1, $2, $3)
     ON CONFLICT (user_id)
-    DO UPDATE SET firmenname = $2, steuernummer = $3;
+    DO UPDATE SET Firmenname = $2, Steuernummer = $3;
 `;
     //remember: we use params to prevent injections from hackers and to insert the vqlues of our sql files into our variables.
     const params = [userId, firmenname, steuernummer];
@@ -121,6 +118,6 @@ exports.updateProducerProfile = function(userId, firmenname, steuernummer) {
             return results.rows[0];
         })
         .catch(err => {
-            console.log("updating user Sql Error is:" + err);
+            console.log("updating Producer Sql Error is:" + err);
         });
 };

@@ -144,7 +144,7 @@ app.post("/registerProducer", (req, res) => {
                         req.session.hashedPassword = hashedPassword;
                         req.session.loggedIn = true;*/
                         req.session.firmenname = req.body.firmenname;
-                        req.session.steuername = req.body.steuernummer;
+                        req.session.steuernummer = req.body.steuernummer;
                         db
                             .createProducer(
                                 results.id,
@@ -287,7 +287,7 @@ app.post("/editProfileCustomer", (req, res) => {
         req.body.benutzername == "" &&
         req.body.password == ""
     ) {
-console.log(req.body);
+        console.log(req.body);
         res.redirect("/profileCustomer");
     } else {
         if (!req.body.firstname == "") {
@@ -390,7 +390,7 @@ app.get("/editProfileProducer", (req, res) => {
     });
 });
 
-app.post("editProfileProducer", (req, res) => {
+app.post("/editProfileProducer", (req, res) => {
     if (
         //these names have to be the same as the names in our edit handlebars
         req.body.firstname == "" &&
@@ -440,6 +440,7 @@ app.post("editProfileProducer", (req, res) => {
                             req.session.benutzername,
                             req.session.hashedPassword
                         )
+
                         //we insert here a then because we write two functions for two different tables.
                         .then(() => {
                             db
@@ -448,6 +449,7 @@ app.post("editProfileProducer", (req, res) => {
                                     req.session.firmenname,
                                     req.session.steuernummer
                                 )
+
                                 .then(() => {
                                     res.redirect("/profileProducer");
                                 });

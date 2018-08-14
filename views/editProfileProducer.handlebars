@@ -4,21 +4,21 @@
 </header>
 <div class="navandmain">
 <nav>
-<a id="customerinfo" href="/kundenInformation">Information</a> <br>
+<a id="customerinfo" href="/producerProfile">Information</a> <br>
 <a id="furtherinfo" href="/weitereInfo">Weitere Information</a> <br>
 <a id="favoritesinfo" href="/Favoriten">Interessenten</a> <br>
 <a id="customerinfo" href="/presentationProducerSide">Präsentation von meiner Firma</a>
 </nav>
 <main>
-<form method="post">
     <h3>Profile hersteller bearbeiten</h3>
-    <p>Vorname: <input type="text" name="firstname" placeholder="{{userData.vorname}}" id="firstname"> </p>
-    <p>Nachname: <input type="text" name="lastname" placeholder="{{userData.nachname}}" id ="lastname"> </p>
-    <p>E-mail: <input type="email" name="email" placeholder="{{userData.email}}" id ="email"> </p>
-    <p>Benutzername: <input type="text" name="loginname" placeholder="{{userData.benutzername}}" id ="loginname"> </p>
-    <p>Passwort: <input type="password" name="password" placeholder="password" value="" id ="password"> </p>
-    <p>Firmenname: <input type="text" name="companyname" placeholder="{{userData.firmenname}}" id ="companyname"> </p>
-    <p>Steuernummer: <input type="text" name="steuernummer" placeholder="{{userData.steuernummer}}" id ="steuernummer"> </p>
+<form method="post">
+    <p>Vorname: <input type="text" name="firstname" value="{{userData.vorname}}" id="firstname"> </p>
+    <p>Nachname: <input type="text" name="lastname" value="{{userData.nachname}}" id ="lastname"> </p>
+    <p>E-mail: <input type="email" name="email" value="{{userData.email}}" id ="email"> </p>
+    <p>Benutzername: <input type="text" name="loginname" value="{{userData.benutzername}}" id ="loginname"> </p>
+    <p>Passwort: <input type="password" name="password" value="password" value="" id ="password"> </p>
+    <p>Firmenname: <input type="text" name="firmenname" value="{{userData.firmenname}}" id ="companyname"> </p>
+    <p>Steuernummer: <input type="text" name="steuernummer" value="{{userData.steuernummer}}" id ="steuernummer"> </p>
 </br> </br>
     <button id="button" type="submit">Daten ändern</button>
 </form>
