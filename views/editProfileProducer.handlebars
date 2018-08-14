@@ -1,0 +1,32 @@
+<header>
+<img src="./images/Kgool-logo2.png" alt="Kgool Logo" class ="homeimage" />
+
+</header>
+<div class="navandmain">
+<nav>
+<a id="customerinfo" href="/kundenInformation">Information</a> <br>
+<a id="furtherinfo" href="/weitereInfo">Weitere Information</a> <br>
+<a id="favoritesinfo" href="/Favoriten">Interessenten</a> <br>
+<a id="customerinfo" href="/presentationProducerSide">Präsentation von meiner Firma</a>
+</nav>
+<main>
+<form method="post">
+    <h3>Profile hersteller bearbeiten</h3>
+    <p>Vorname: <input type="text" name="firstname" placeholder="{{userData.vorname}}" id="firstname"> </p>
+    <p>Nachname: <input type="text" name="lastname" placeholder="{{userData.nachname}}" id ="lastname"> </p>
+    <p>E-mail: <input type="email" name="email" placeholder="{{userData.email}}" id ="email"> </p>
+    <p>Benutzername: <input type="text" name="loginname" placeholder="{{userData.benutzername}}" id ="loginname"> </p>
+    <p>Passwort: <input type="password" name="password" placeholder="password" value="" id ="password"> </p>
+    <p>Firmenname: <input type="text" name="companyname" placeholder="{{userData.firmenname}}" id ="companyname"> </p>
+    <p>Steuernummer: <input type="text" name="steuernummer" placeholder="{{userData.steuernummer}}" id ="steuernummer"> </p>
+</br> </br>
+    <button id="button" type="submit">Daten ändern</button>
+</form>
+
+</main>
+</div>
+
+<footer>
+    <p>Über Uns / Datenschutz / Contact / Einwilligungsfreigabe {{>logout}}<p>
+
+</footer>

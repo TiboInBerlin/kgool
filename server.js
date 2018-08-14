@@ -147,6 +147,7 @@ app.post("/registerProducer", (req, res) => {
                         req.session.steuername = req.body.steuernummer;
                         db
                             .createProducer(
+                                results.id,
                                 req.body.firmenname,
                                 req.body.steuernummer
                             )
@@ -286,6 +287,7 @@ app.post("/editProfileCustomer", (req, res) => {
         req.body.benutzername == "" &&
         req.body.password == ""
     ) {
+console.log(req.body);
         res.redirect("/profileCustomer");
     } else {
         if (!req.body.firstname == "") {
@@ -343,7 +345,7 @@ app.post("/editProfileCustomer", (req, res) => {
         }
     }
 });
-
+//ACHTUNG: WHAT HAPPENS IF USER IS NOT LOGGED IN?
 app.get("/profileCustomer", (req, res) => {
     db.getUserInfo(req.session.userId).then(results => {
         //we put here all the data of the users in our different fields (because placeholder is not a solution) and we do that before the render
@@ -357,13 +359,124 @@ app.get("/profileCustomer", (req, res) => {
         });
     });
 });
-
+//ACHTUNG: WHAT HAPPENS IF USER IS NOT LOGGED IN?
 app.get("/profileProducer", (req, res) => {
-    //in the get, i ahve always to use a page! that s why: /login
-    if (req.session.loggedIn != true) {
-        res.render("profileProducer");
+    db.getProducerInfo(req.session.userId).then(results => {
+        req.session.firstname = results.first_name;
+        req.session.lastname = results.last_name;
+        req.session.email = results.email;
+        req.session.benutzername = results.benutzername;
+        req.session.hashedPassword = results.hashed_password;
+        req.session.benutzername = results.benutzername;
+        req.session.steuernummer = results.steuernummer;
+        res.render("profileProducer", {
+            userData: results
+        });
+    });
+});
+
+app.get("/editProfileProducer", (req, res) => {
+    db.getProducerInfo(req.session.userId).then(results => {
+        req.session.firstname = results.first_name;
+        req.session.lastname = results.last_name;
+        req.session.email = results.email;
+        req.session.benutzername = results.benutzername;
+        req.session.hashedPassword = results.hashed_password;
+        req.session.benutzername = results.benutzername;
+        req.session.steuernummer = results.steuernummer;
+        res.render("editProfileProducer", {
+            userData: results
+        });
+    });
+});
+
+app.post("editProfileProducer", (req, res) => {
+    if (
+        //these names have to be the same as the names in our edit handlebars
+        req.body.firstname == "" &&
+        req.body.lastname == "" &&
+        req.body.email == "" &&
+        req.body.password == "" &&
+        req.body.benutzername == "" &&
+        req.body.firmenname == "" &&
+        req.body.steuernummer == ""
+    ) {
+        res.redirect("/profileProducer");
     } else {
-        res.render("profileProducer");
+        if (!req.body.firstname == "") {
+            req.session.firstname = req.body.firstname;
+        }
+        if (!req.body.lastname == "") {
+            req.session.lastname = req.body.lastname;
+        }
+        if (!req.body.email == "") {
+            req.session.email = req.body.email;
+        }
+        if (!req.body.benutzername == "") {
+            req.session.benutzername = req.body.benutzername;
+        }
+        if (!req.body.firmenname == "") {
+            req.session.firmenname = req.body.firmenname;
+        }
+        if (!req.body.steuernummer == "") {
+            req.session.steuernummer = req.body.steuernummer;
+        }
+        if (!req.body.password == "") {
+            //we hash the new password of the user: the variable result represents here the hashed password
+            bcrypt
+                .hashPassword(req.body.password)
+                .then(result => {
+                    //... and we add this hashed pwd to the result!
+                    req.session.hashedPassword = result;
+                    //problem: the function hashPassword is asynchronous. so we insert a then here:
+                })
+                .then(() => {
+                    db
+                        .updateUsers(
+                            req.session.userId,
+                            req.session.firstname,
+                            req.session.lastname,
+                            req.session.email,
+                            req.session.benutzername,
+                            req.session.hashedPassword
+                        )
+                        //we insert here a then because we write two functions for two different tables.
+                        .then(() => {
+                            db
+                                .updateProducerProfile(
+                                    req.session.userId,
+                                    req.session.firmenname,
+                                    req.session.steuernummer
+                                )
+                                .then(() => {
+                                    res.redirect("/profileProducer");
+                                });
+                        });
+                });
+        } else {
+            //we create a else because in case the user did not change the password, we do not have any problem of asynchronousity and do not need any fucking then!
+            db
+                .updateUsers(
+                    req.session.userId,
+                    req.session.firstname,
+                    req.session.lastname,
+                    req.session.email,
+                    req.session.benutzername,
+                    req.session.hashedPassword
+                )
+                .then(() => {
+                    db
+                        .updateProducerProfile(
+                            req.session.userId,
+                            req.session.firmenname,
+                            req.session.steuernummer
+                        )
+                        .then(() => {
+                            //we wil redirect the user to the edit page so that he can see his new data
+                            res.redirect("/profileProducer");
+                        });
+                });
+        }
     }
 });
 

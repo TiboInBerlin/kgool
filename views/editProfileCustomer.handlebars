@@ -4,17 +4,17 @@
 </header>
 <div class="navandmain">
 <nav>
-<a id="customerinfo" href="/kundenInformationCustomer">Information</a> <br>
+<a id="customerinfo" href="/profileCustomer">Information</a> <br>
 <a id="favoritessuppliersinfo" href="/lieblingsfirmen">Meine lieblingsfirmen</a> <br>
 <a id="searchlink" href="/welcome">Firma Suchen</a>
 </nav>
 <main>
 <form method="post">
-    <p>Vorname: <input type="text" name="firstname" placeholder="{{userData.vorname}}" id="firstname"> </p>
-    <p>Nachname: <input type="text" name="lastname" placeholder="{{userData.nachname}}" id ="lastname"> </p>
-    <p>E-mail: <input type="email" name="email" placeholder="{{userData.email}}" id ="email"> </p>
-    <p>Benutzername: <input type="text" name="benutzername" placeholder="{{userData.benutzername}}" id ="loginname"> </p>
-    <p>Passwort: <input type="password" name="password" placeholder="password" value="" id ="password"> </p>
+    <p>Vorname: <input type="text" name="firstname" value ="{{userData.vorname}}" id="firstname"> </p>
+    <p>Nachname: <input type="text" name="lastname" value="{{userData.nachname}}" id ="lastname"> </p>
+    <p>E-mail: <input type="email" name="email" value="{{userData.email}}" id ="email"> </p>
+    <p>Benutzername: <input type="text" name="benutzername" value="{{userData.benutzername}}" id ="loginname"> </p>
+    <p>Passwort: <input type="password" name="password" value="password" value="" id ="password"> </p>
 </br> </br>
     <button id="button" type="submit">Daten ändern</button>
 </form>

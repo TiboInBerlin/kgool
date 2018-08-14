@@ -26,14 +26,15 @@ VALUES($1, $2, $3, $4, $5) RETURNING *
     });
 };
 
-exports.createProducer = function(firmenname, steuernummer) {
+exports.createProducer = function(id, firmenname, steuernummer) {
     const q = `
-    INSERT INTO producers (Firmenname, Steuernummer)
-    VALUES($1, $2) RETURNING *
+    INSERT INTO producers (user_id, Firmenname, Steuernummer)
+    VALUES($1, $2, $3) RETURNING *
     `;
-    const params = [firmenname, steuernummer];
+    const params = [id, firmenname, steuernummer];
 
     return db.query(q, params).then(results => {
+
         return results.rows[0];
     });
 };
@@ -86,10 +87,40 @@ exports.getUserInfo = function(id) {
     });
 };
 
+exports.getProducerInfo = function(userId) {
+    const q =
+        "select users.vorname, users.nachname, users.email, users.benutzername, users.hashed_password, producers.Firmenname, producers.Steuernummer from users left join producers on producers.user_id = users.id where users.id = $1;";
+    const params = [userId];
+    return db.query(q, params).then(results => {
+        return results.rows[0];
+    });
+};
+
+
 exports.getEmail = function(email) {
     const q = `SELECT id,email,hashed_password FROM users WHERE email= $1;`;
     const params = [email];
     return db.query(q, params).then(results => {
         return results.rows;
     });
+};
+
+exports.updateProducerProfile = function(userId, firmenname, steuernummer) {
+    const q = `
+    INSERT INTO producers (user_id,firmenname, steuernummer)
+    VALUES ($1, $2, $3)
+    ON CONFLICT (user_id)
+    DO UPDATE SET firmenname = $2, steuernummer = $3;
+`;
+    //remember: we use params to prevent injections from hackers and to insert the vqlues of our sql files into our variables.
+    const params = [userId, firmenname, steuernummer];
+
+    return db
+        .query(q, params)
+        .then(results => {
+            return results.rows[0];
+        })
+        .catch(err => {
+            console.log("updating user Sql Error is:" + err);
+        });
 };
