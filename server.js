@@ -291,7 +291,7 @@ app.post("/editProfileCustomer", (req, res) => {
         req.body.benutzername == "" &&
         req.body.password == ""
     ) {
-        console.log("no customer data changed",req.body);
+        console.log("no customer data changed", req.body);
         res.redirect("/profileCustomer");
     } else {
         if (req.body.firstname != "") {
@@ -327,7 +327,6 @@ app.post("/editProfileCustomer", (req, res) => {
                         )
                         //we insert here a then because we write two functions for two different tables.
                         .then(() => {
-
                             res.redirect("/profileCustomer");
                             console.log("password was changed");
                         });
@@ -486,6 +485,38 @@ app.post("/editProfileProducer", (req, res) => {
                 });
         }
     }
+});
+
+app.post("/presentationProducerSide", (req, res) => {
+    db
+        .createProducerPresentation(
+            req.session.userId,
+            req.session.logo,
+            req.session.strasse,
+            req.session.plz,
+            req.session.stadt,
+            req.session.bundesland,
+            req.session.land,
+            req.session.telefon,
+            req.session.fax,
+            req.session.webseite,
+            req.session.uberuns
+        )
+        .then(() => {
+            db
+                .createProducerKeywords(
+                    req.session.keyword1,
+                    req.session.keyword2,
+                    req.session.keyword3,
+                    req.session.keyword4,
+                    req.session.keyword5
+                )
+                .then(results => {
+                    res.render("presentationProducerSide", {
+                        userData: results
+                    });
+                });
+        });
 });
 
 app.get("/kundenInformation", (req, res) => {

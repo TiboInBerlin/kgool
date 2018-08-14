@@ -82,14 +82,6 @@ exports.getProducerInfo = function(userId) {
     });
 };
 
-exports.getEmail = function(email) {
-    const q = `SELECT id,email,hashed_password FROM users WHERE email= $1;`;
-    const params = [email];
-    return db.query(q, params).then(results => {
-        return results.rows;
-    });
-};
-
 exports.createProducer = function(id, firmenname, steuernummer) {
     const q = `
     INSERT INTO producers (user_id, Firmenname, Steuernummer)
@@ -120,4 +112,34 @@ exports.updateProducerProfile = function(userId, firmenname, steuernummer) {
         .catch(err => {
             console.log("updating Producer Sql Error is:" + err);
         });
+};
+
+exports.getProducerPresentation = function(userId) {
+    const q = `SELECT logo,strasse,plz,stadt,bundesland,land,telefon,fax,webseite,uberuns,katalog FROM producers WHERE id=$1;`
+    const params = [userId];
+    return db.query(q, params).then(results => {
+        return results.rows[0];
+    });
+};
+
+exports.getProducerKeywords = function(userId) {
+    const q = `SELECT keyword1,keyword2,keyword3,keyword4,keyword5 FROM keywords WHERE id=$1;`
+    const params = [userId];
+    return db.query(q, params).then(results => {
+        return results.rows[0];
+    });
+};
+
+exports.createProducerPresentation()
+
+
+exports.createProducerKeywords()
+
+
+exports.getEmail = function(email) {
+    const q = `SELECT id,email,hashed_password FROM users WHERE email= $1;`;
+    const params = [email];
+    return db.query(q, params).then(results => {
+        return results.rows;
+    });
 };

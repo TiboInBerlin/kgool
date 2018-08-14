@@ -3,7 +3,7 @@ body {
     background-color: white;
     flex-direction: column;
     justify-content: flex-start;
-    font-family: tahoma;
+    font-family: 'Montserrat', sans-serif;
 }
 
 header {

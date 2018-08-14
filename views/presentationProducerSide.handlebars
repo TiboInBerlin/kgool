@@ -7,14 +7,19 @@
 <main>
     <h1>Ihre persönliche Präsentation Seite</h1>
 <form method="post">
-    <p>Logo</p>
-    <p>Anschrift: <input type="text" name="lastname" placeholder="Nachname" id ="lastname"> </p>
-    <p>Kontakt: <input type="text" name="kontakt" placeholder="Kontakt" id ="kontakt"> </p>
-    <p>GoogleMap</p>
-    <p>Über Uns: <input type="text" name="uberuns" placeholder="Über Uns" id ="uberuns"> </p>
-    <p>Produktkategorien: https://www.internorga.com/aussteller/profil/ausstellerverzeichnis/#/suche/t=cat_categories;c=50 <input type="text" name="produktkategorien" placeholder="Produktkategorien" value="" id ="Produktkategorien"> </p>
-    <p>Stichworte: <input type="text" name="companyname" placeholder="Stichworte" id ="stichworte"> </p>
-    <p>Katalog: link(neues fenster und link sollte ein bild sein von katalog erste seite) zur katalogue: zb: http://info.gastroquelle.com/bk/gastronomiebedarf oder http://info.gastroquelle.com/bk/biggreenegg/</p>
+    <p>Logo: <input type="text" name="logo" value="{{userData.logo}}" id ="logourl"> </p>
+    <p>Strasse: <input type="text" name="strasse" value="{{userData.strasse}}" id ="strasse"> </p>
+    <p>PLZ: <input type="text" name="plz" value="{{userData.plz}}" id ="plz"> </p>
+    <p>Stadt: <input type="text" name="stadt" value="{{userData.stadt}}" id ="stadt"> </p>
+    <p>Bundesland: <input type="text" name="bundesland" value="{{userData.bundesland}}" id ="bundesland"> </p>
+    <p>Land: <input type="text" name="land" value="{{userData.land}}" id ="land"> </p>
+    <p>Telefon: <input type="text" name="telefon" value="{{userData.telefon}}" id ="telefon"> </p>
+    <p>Fax: <input type="text" name="fax" value="{{userData.fax}}" id ="fax"> </p>
+    <p>Webseite: <input type="text" name="webseite" value="{{userData.webseite}}" id ="webseite"> </p>
+    <p>Über Uns: <input type="text" name="uberuns" value="{{userData.uberuns}}" id ="uberuns"> </p>
+    <p>Stichworte: <input type="text" name="stichworte" value="{{userData.stichworte}}" id ="stichworte"> </p>
+    <p>Katalog: <input type="text" name="katalog" value="{{userData.katalog}}" id ="katalog"></p>
+
 </form>
 
 </main>
