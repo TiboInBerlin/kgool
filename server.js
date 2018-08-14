@@ -192,9 +192,11 @@ app.post("/login", (req, res) => {
             //remember: the result is ALWAYS an array!
             if (results.length == 0) {
                 res.redirect("/login");
+                console.log("problem benutzername");
             } else {
                 userInfo = results[0];
                 const hashedPwd = userInfo.hashed_password; //result is an array and hashed password is the fifth element of this array
+                console.log(hashedPwd);
                 bcrypt
                     .checkPassword(req.body.password, hashedPwd)
                     .then(checked => {
@@ -208,8 +210,10 @@ app.post("/login", (req, res) => {
                             req.session.hashedPassword = hashedPwd;
                             req.session.loggedIn = true;
                             res.redirect("/profileCustomer");
+                            console.log("passwordcheckedok");
                         } else {
                             res.redirect("/login");
+                            console.log("password not ok");
                         }
                     });
             }
@@ -220,9 +224,9 @@ app.post("/login", (req, res) => {
 app.get("/loginProducer", (req, res) => {
     //in the get, i ahve always to use a page! that s why: /login
     if (req.session.loggedIn != true) {
-        res.render("login");
+        res.render("loginProducer");
     } else {
-        res.render("login");
+        res.render("loginProducer");
     }
 });
 
@@ -287,22 +291,22 @@ app.post("/editProfileCustomer", (req, res) => {
         req.body.benutzername == "" &&
         req.body.password == ""
     ) {
-        console.log(req.body);
+        console.log("no customer data changed",req.body);
         res.redirect("/profileCustomer");
     } else {
-        if (!req.body.firstname == "") {
+        if (req.body.firstname != "") {
             req.session.firstname = req.body.firstname;
         }
-        if (!req.body.lastname == "") {
+        if (req.body.lastname != "") {
             req.session.lastname = req.body.lastname;
         }
-        if (!req.body.email == "") {
+        if (req.body.email != "") {
             req.session.email = req.body.email;
         }
-        if (!req.body.benutzername == "") {
+        if (req.body.benutzername != "") {
             req.session.benutzername = req.body.benutzername;
         }
-        if (!req.body.password == "") {
+        if (req.body.password != "") {
             //we hash the new password of the user: the variable result represents here the hashed password
             bcrypt
                 .hashPassword(req.body.password)
@@ -323,8 +327,9 @@ app.post("/editProfileCustomer", (req, res) => {
                         )
                         //we insert here a then because we write two functions for two different tables.
                         .then(() => {
-                            //we wil redirect the user to the edit page so that he can see his new data
+
                             res.redirect("/profileCustomer");
+                            console.log("password was changed");
                         });
                 });
         } else {
@@ -341,6 +346,7 @@ app.post("/editProfileCustomer", (req, res) => {
                 .then(() => {
                     //we wil redirect the user to the edit page so that he can see his new data
                     res.redirect("/profileCustomer");
+                    console.log("password was not changed");
                 });
         }
     }

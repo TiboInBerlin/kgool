@@ -24,8 +24,10 @@ module.exports.checkPassword = function (textEnteredInLoginForm, hashedPasswordF
             function(err, doesMatch) {
                 if (err) {
                     reject(err);
+                    console.log("errorwithcheckPassword");
                 } else {
                     resolve(doesMatch);
+                    console.log("checkPassword ok");
                 }
             }
         );
