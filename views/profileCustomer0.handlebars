@@ -1,0 +1,27 @@
+<header>
+<img src="./images/Kgool-logo2.png" alt="Kgool Logo" class ="homeimage" />
+
+</header>
+<div class="navandmain">
+<nav>
+<a id="customerinfo" href="/profileCustomer">Information</a> <br>
+<a id="favoritessuppliersinfo" href="/lieblingsfirmen">Meine lieblingsfirmen</a> <br>
+<a id="searchlink" href="/welcome">Firma Suchen</a>
+</nav>
+<main>
+<form method="get">
+    <h3>PROFILE CUSTOMER: Kundeninformation page will be display all info herunder and will have a link to edit all info"</h3>
+<a id="editprofilecustomerlink" href="/editProfileCustomer">Edit Profile Customer</a>
+    <p>Vorname: {{userData.vorname}} </p>
+    <p>Nachname: {{userData.nachname}} </p>
+    <p>email: {{userData.email}} </p>
+    <p>Benutzername: {{userData.benutzername}} </p>
+</form>
+
+</main>
+</div>
+
+<footer>
+    <p>Über Uns / Datenschutz / Contact / Einwilligungsfreigabe {{>logout}}<p>
+
+</footer>

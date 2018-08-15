@@ -396,19 +396,19 @@ app.get("/presentationProducerSideRender", (req, res) => {
         req.session.webseite = results.webseite;
         req.session.uberuns = results.uberuns;
         req.session.katalog = results.katalog;
-        db.getProducerKeywords(req.session.userId).then(() => {
-            req.session.keyword1 = results.keyword1;
-            req.session.keyword2 = results.keyword2;
-            req.session.keyword3 = results.keyword3;
-            req.session.keyword4 = results.keyword4;
-            req.session.keyword5 = results.keyword5;
-            console.log("this is my session", req.session);
+        db.getProducerKeywords(req.session.userId).then(results2 => {
+            req.session.keyword1 = results2.keyword1;
+            req.session.keyword2 = results2.keyword2;
+            req.session.keyword3 = results2.keyword3;
+            req.session.keyword4 = results2.keyword4;
+            req.session.keyword5 = results2.keyword5;
+            console.log("this is my second session", req.session);
             res.render("presentationProducerSideRender", {
-                userData: results
+                userData: results,
+                keywords: results2
             });
         });
-
-        console.log(results);
+        console.log("this is my first session", req.session);
     });
 });
 
