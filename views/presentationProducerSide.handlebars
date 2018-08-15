@@ -8,6 +8,8 @@
     <h1>Ihre persönliche Präsentation Seite</h1>
 <form method="post">
     <p>Logo: <input type="text" name="logo" value="{{userData.logo}}" id ="logourl"> </p>
+    <p>Firmenname: <input type="text" name="firmenname" value="{{userData.firmenname}}" id ="companyname"> </p>
+    <p>Steuernummer: <input type="text" name="steuernummer" value="{{userData.steuernummer}}" id ="steuernummer"> </p>
     <p>Strasse: <input type="text" name="strasse" value="{{userData.strasse}}" id ="strasse"> </p>
     <p>PLZ: <input type="text" name="plz" value="{{userData.plz}}" id ="plz"> </p>
     <p>Stadt: <input type="text" name="stadt" value="{{userData.stadt}}" id ="stadt"> </p>
@@ -19,7 +21,8 @@
     <p>Über Uns: <input type="text" name="uberuns" value="{{userData.uberuns}}" id ="uberuns"> </p>
     <p>Stichworte: <input type="text" name="stichworte" value="{{userData.stichworte}}" id ="stichworte"> </p>
     <p>Katalog: <input type="text" name="katalog" value="{{userData.katalog}}" id ="katalog"></p>
-
+</br> </br>
+    <button id="button" type="submit">Präsentation ändern</button>
 </form>
 
 </main>

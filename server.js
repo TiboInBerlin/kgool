@@ -488,35 +488,89 @@ app.post("/editProfileProducer", (req, res) => {
 });
 
 app.post("/presentationProducerSide", (req, res) => {
-    db
-        .createProducerPresentation(
-            req.session.userId,
-            req.session.logo,
-            req.session.strasse,
-            req.session.plz,
-            req.session.stadt,
-            req.session.bundesland,
-            req.session.land,
-            req.session.telefon,
-            req.session.fax,
-            req.session.webseite,
-            req.session.uberuns
-        )
-        .then(() => {
-            db
-                .createProducerKeywords(
-                    req.session.keyword1,
-                    req.session.keyword2,
-                    req.session.keyword3,
-                    req.session.keyword4,
-                    req.session.keyword5
-                )
-                .then(results => {
-                    res.render("presentationProducerSide", {
-                        userData: results
+    if (
+        //these names have to be the same as the names in our edit handlebars
+        req.body.firmenname == "" &&
+        req.body.steuernummer == "" &&
+        req.body.strasse == "" &&
+        req.body.plz == "" &&
+        req.body.stadt == "" &&
+        req.body.bundesland == "" &&
+        req.body.land == "" &&
+        req.body.telefon == "" &&
+        req.body.fax == "" &&
+        req.body.uberuns == "" &&
+        req.body.katalog == ""
+    ) {
+        res.redirect("/profileProducer");
+    } else {
+        if (req.body.firmenname != "") {
+            req.session.firmenname = req.body.firmenname;
+        }
+        if (req.body.steuernummer != "") {
+            req.session.steuernummer = req.body.steuernummer;
+        }
+        if (req.body.strasse != "") {
+            req.session.strasse = req.body.strasse;
+        }
+        if (req.body.plz != "") {
+            req.session.plz = req.body.plz;
+        }
+        if (req.body.stadt != "") {
+            req.session.stadt = req.body.stadt;
+        }
+        if (req.body.bundesland != "") {
+            req.session.bundesland = req.body.bundesland;
+        }
+        if (req.body.land != "") {
+            req.session.land = req.body.land;
+        }
+        if (req.body.telefon != "") {
+            req.session.telefon = req.body.telefon;
+        }
+        if (req.body.fax != "") {
+            req.session.fax = req.body.fax;
+        }
+        if (req.body.uberuns != "") {
+            req.session.uberuns = req.body.uberuns;
+        }
+        if (req.body.katalog != "") {
+            req.session.katalog = req.body.katalog;
+        }
+        db
+            .createProducerPresentation(
+                req.session.userId,
+                req.session.firmenname,
+                req.session.steuernummer,
+                req.session.logo,
+                req.session.strasse,
+                req.session.nummer,
+                req.session.plz,
+                req.session.stadt,
+                req.session.bundesland,
+                req.session.land,
+                req.session.telefon,
+                req.session.fax,
+                req.session.webseite,
+                req.session.uberuns,
+                req.session.katalog
+            )
+            .then(() => {
+                db
+                    .createProducerKeywords(
+                        req.session.keyword1,
+                        req.session.keyword2,
+                        req.session.keyword3,
+                        req.session.keyword4,
+                        req.session.keyword5
+                    )
+                    .then(results => {
+                            res.render("presentationProducerSide", {
+                                userData: results
+                            });
                     });
-                });
-        });
+            });
+    }
 });
 
 app.get("/kundenInformation", (req, res) => {
@@ -547,12 +601,25 @@ app.get("/Favoriten", (req, res) => {
 });
 
 app.get("/presentationProducerSide", (req, res) => {
-    //in the sget, i ahve always to use a page! that s why: /login
-    if (req.session.loggedIn != true) {
-        res.render("presentationProducerSide");
-    } else {
-        res.render("presentationProducerSide");
-    }
+    db.getProducerPresentation(req.session.userId).then(results => {
+        req.session.firmenname = results.firmenname;
+        req.session.steuernummer = results.steuernummer;
+        req.session.logo = results.logo;
+        req.session.strasse = results.strasse;
+        req.session.plz = results.plz;
+        req.session.stadt = results.stadt;
+        req.session.bundesland = results.bundesland;
+        req.session.land = results.land;
+        req.session.telefon = results.telefon;
+        req.session.fax = results.fax;
+        req.session.webseite = results.webseite;
+        req.session.uberuns = results.uberuns;
+        req.session.katalog = results.katalog;
+        res.render("presentationProducerSide", {
+            userData: results
+        });
+        console.log(results);
+    });
 });
 
 app.get("/kundenInformationCustomer", (req, res) => {
@@ -579,15 +646,6 @@ app.get("/contactProducerPage", (req, res) => {
         res.render("contactProducerPage");
     } else {
         res.render("contactProducerPage");
-    }
-});
-
-app.get("/presentationProducerSide", (req, res) => {
-    //in the sget, i ahve always to use a page! that s why: /login
-    if (req.session.loggedIn != true) {
-        res.render("presentationProducerSide");
-    } else {
-        res.render("presentationProducerSide");
     }
 });
 
