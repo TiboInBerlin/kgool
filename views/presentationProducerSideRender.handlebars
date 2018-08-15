@@ -1,0 +1,38 @@
+<header>
+<img src="./images/Kgool-logo2.png" alt="Kgool Logo" class ="homeimage" />
+
+</header>
+<div class="navandmain">
+    <nav>
+    <a id="producerinfo" href="/profileProducer">Information</a> <br>
+
+    <a id="favoritesinfo" href="/Favoriten">Interessenten</a> <br>
+    <a id="presentationlink" href="/presentationProducerSideRender">Präsentation von meiner Firma</a>
+    </nav>
+<main>
+<form method="get">
+    <h3>Präsentation von Firma {{userData.firmenname}}</h3>
+<a id="editpresentationproducerlink" href="/presentationProducerSide">Präsentation Seite bearbeiten</a>
+    <p>Logo: {{userData.logo}} </p>
+    <p>Firmenname: {{userData.firmenname}} </p>
+    <p>Steuernummer: {{userData.steuernummer}} </p>
+    <p>Strasse: {{userData.strasse}} </p>
+    <p>PLZ: {{userData.plz}} </p>
+    <p>Stadt: {{userData.stadt}} </p>
+    <p>Bundesland: {{userData.bundesland}} </p>
+    <p>Land: {{userData.land}} </p>
+    <p>Telefon: {{userData.telefon}} </p>
+    <p>Fax: {{userData.fax}} </p>
+    <p>Webseite: {{userData.webseite}} </p>
+    <p>Über Uns: {{userData.uberuns}} </p>
+    <p>Stichworte: {{userData.stichworte}} </p>
+    <p>Katalog: {{userData.katalog}} </p>
+</form>
+
+</main>
+</div>
+
+<footer>
+    <p>Über Uns / Datenschutz / Contact / Einwilligungsfreigabe {{>logout}}<p>
+
+</footer>

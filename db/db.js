@@ -157,7 +157,7 @@ exports.createProducerPresentation = function(
     katalog
 ) {
     const q = `
-        INSERT INTO producers (user_id, Firmenname, Steuernummer, logo, strasse, nummer, plz, stadt, bundesland, land, telefon, fax, webseite,uberuns, Katalog)
+        INSERT INTO producers (user_id, Firmenname, Steuernummer, logo, strasse, nummer, plz, stadt, bundesland, land, telefon, fax, webseite, uberuns, Katalog)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
         ON CONFLICT (user_id)
         DO UPDATE SET Firmenname = $2, Steuernummer = $3, logo = $4, strasse = $5, nummer =$6, plz = $7, stadt = $8, bundesland = $9, land = $10, telefon = $11, fax = $12, webseite = $13,uberuns = $14, Katalog = $15;

@@ -364,6 +364,7 @@ app.get("/profileCustomer", (req, res) => {
         });
     });
 });
+
 //ACHTUNG: WHAT HAPPENS IF USER IS NOT LOGGED IN?
 app.get("/profileProducer", (req, res) => {
     db.getProducerInfo(req.session.userId).then(results => {
@@ -377,6 +378,28 @@ app.get("/profileProducer", (req, res) => {
         res.render("profileProducer", {
             userData: results
         });
+    });
+});
+
+app.get("/presentationProducerSideRender", (req, res) => {
+    db.getProducerPresentation(req.session.userId).then(results => {
+        req.session.firmenname = results.firmenname;
+        req.session.steuernummer = results.steuernummer;
+        req.session.logo = results.logo;
+        req.session.strasse = results.strasse;
+        req.session.plz = results.plz;
+        req.session.stadt = results.stadt;
+        req.session.bundesland = results.bundesland;
+        req.session.land = results.land;
+        req.session.telefon = results.telefon;
+        req.session.fax = results.fax;
+        req.session.webseite = results.webseite;
+        req.session.uberuns = results.uberuns;
+        req.session.katalog = results.katalog;
+        res.render("presentationProducerSideRender", {
+            userData: results
+        });
+        console.log(results);
     });
 });
 
@@ -531,6 +554,9 @@ app.post("/presentationProducerSide", (req, res) => {
         if (req.body.fax != "") {
             req.session.fax = req.body.fax;
         }
+        if (req.body.webseite != "") {
+            req.session.webseite = req.body.webseite;
+        }
         if (req.body.uberuns != "") {
             req.session.uberuns = req.body.uberuns;
         }
@@ -565,9 +591,7 @@ app.post("/presentationProducerSide", (req, res) => {
                         req.session.keyword5
                     )
                     .then(results => {
-                            res.render("presentationProducerSide", {
-                                userData: results
-                            });
+                        res.redirect("/presentationProducerSideRender");
                     });
             });
     }
