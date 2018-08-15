@@ -132,7 +132,7 @@ exports.getProducerInfo = function(userId) {
 };
 
 exports.getProducerKeywords = function(userId) {
-    const q = `SELECT keyword1,keyword2,keyword3,keyword4,keyword5 FROM keywords WHERE id=$1;`;
+    const q = "select keywords.keyword1,keywords.keyword2,keywords.keyword3,keywords.keyword4,keywords.keyword5 from users left join keywords on keywords.user_id = users.id where users.id = $1;";
     const params = [userId];
     return db.query(q, params).then(results => {
         return results.rows[0];

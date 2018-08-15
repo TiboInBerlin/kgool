@@ -396,9 +396,18 @@ app.get("/presentationProducerSideRender", (req, res) => {
         req.session.webseite = results.webseite;
         req.session.uberuns = results.uberuns;
         req.session.katalog = results.katalog;
-        res.render("presentationProducerSideRender", {
-            userData: results
+        db.getProducerKeywords(req.session.userId).then(() => {
+            req.session.keyword1 = results.keyword1;
+            req.session.keyword2 = results.keyword2;
+            req.session.keyword3 = results.keyword3;
+            req.session.keyword4 = results.keyword4;
+            req.session.keyword5 = results.keyword5;
+            console.log("this is my session", req.session);
+            res.render("presentationProducerSideRender", {
+                userData: results
+            });
         });
+
         console.log(results);
     });
 });
@@ -523,7 +532,12 @@ app.post("/presentationProducerSide", (req, res) => {
         req.body.telefon == "" &&
         req.body.fax == "" &&
         req.body.uberuns == "" &&
-        req.body.katalog == ""
+        req.body.katalog == "" &&
+        req.body.keyword1 == "" &&
+        req.body.keyword2 == "" &&
+        req.body.keyword3 == "" &&
+        req.body.keyword4 == "" &&
+        req.body.keyword5 == ""
     ) {
         res.redirect("/profileProducer");
     } else {
@@ -563,6 +577,21 @@ app.post("/presentationProducerSide", (req, res) => {
         if (req.body.katalog != "") {
             req.session.katalog = req.body.katalog;
         }
+        if (req.body.keyword1 != "") {
+            req.session.keyword1 = req.body.keyword1;
+        }
+        if (req.body.keyword2 != "") {
+            req.session.keyword2 = req.body.keyword2;
+        }
+        if (req.body.keyword3 != "") {
+            req.session.keyword3 = req.body.keyword3;
+        }
+        if (req.body.keyword4 != "") {
+            req.session.keyword4 = req.body.keyword4;
+        }
+        if (req.body.keyword5 != "") {
+            req.session.keyword5 = req.body.keyword5;
+        }
         db
             .createProducerPresentation(
                 req.session.userId,
@@ -584,6 +613,7 @@ app.post("/presentationProducerSide", (req, res) => {
             .then(() => {
                 db
                     .createProducerKeywords(
+                        req.session.userId,
                         req.session.keyword1,
                         req.session.keyword2,
                         req.session.keyword3,
@@ -639,10 +669,19 @@ app.get("/presentationProducerSide", (req, res) => {
         req.session.webseite = results.webseite;
         req.session.uberuns = results.uberuns;
         req.session.katalog = results.katalog;
-        res.render("presentationProducerSide", {
-            userData: results
+        db.getProducerKeywords(req.session.userId).then(results2 => {
+            req.session.keyword1 = results2.keyword1;
+            req.session.keyword2 = results2.keyword2;
+            req.session.keyword3 = results2.keyword3;
+            req.session.keyword4 = results2.keyword4;
+            req.session.keyword5 = results2.keyword5;
+            console.log("this is my second session", req.session);
+            res.render("presentationProducerSide", {
+                userData: results,
+                keywords: results2
+            });
         });
-        console.log(results);
+        console.log("this is my first session", req.session);
     });
 });
 
