@@ -132,7 +132,8 @@ exports.getProducerInfo = function(userId) {
 };
 
 exports.getProducerKeywords = function(userId) {
-    const q = "select keywords.keyword1,keywords.keyword2,keywords.keyword3,keywords.keyword4,keywords.keyword5 from users left join keywords on keywords.user_id = users.id where users.id = $1;";
+    const q =
+        "select keywords.keyword1,keywords.keyword2,keywords.keyword3,keywords.keyword4,keywords.keyword5 from users left join keywords on keywords.user_id = users.id where users.id = $1;";
     const params = [userId];
     return db.query(q, params).then(results => {
         return results.rows[0];
@@ -222,6 +223,23 @@ exports.getEmail = function(email) {
     const q = `SELECT id,email,hashed_password FROM users WHERE email= $1;`;
     const params = [email];
     return db.query(q, params).then(results => {
+        return results.rows;
+    });
+};
+
+exports.searchByKeywords = function(keyword) {
+    const q = `SELECT user_id FROM keywords WHERE keyword LIKE '%$1%';`;
+    const params = [keyword];
+    return db.query(q, params).then(results => {
+        return results.rows;
+    });
+};
+
+//USE IT FOR SEARCH 2!!!
+exports.getProducersInfosByIds = function(arrayOfIds) {
+    const query = `SELECT * FROM users WHERE id = ANY($1)`;
+    return db.query(query, [arrayOfIds]).then(results => {
+        console.log(results.rows);
         return results.rows;
     });
 };

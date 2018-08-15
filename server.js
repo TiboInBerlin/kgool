@@ -35,16 +35,33 @@ app.get("/", (req, res) => {
 app.get("/welcome", (req, res) => {
     if (req.session.loggedIn != true) {
         res.render("welcome", {
-            //remember: res.render is for template
             layout: "main"
         });
     } else {
         res.render("welcome", {
-            //remember: res.render is for template
             layout: "main"
         });
     }
-    //db.getSigners()
+});
+
+app.post("/welcome", (req, res) => {
+    if (req.body.search == "") {
+        res.redirect("/welcome"); // if the user has one empty field, we redirect user to register page
+    } else {
+        db.searchByKeywords(req.body.search).then(results => {
+            //remember: the result is ALWAYS an array!
+            let x = results;
+            if (results.length == 0) {
+                res.redirect("/welcome");
+                console.log("no results for the search!");
+            } else {
+                res.redirect("/profileProducer")
+                /*res.render("producerslist", {
+                    userData: results
+                });*/
+            }
+        });
+    }
 });
 
 app.get("/registerCustomer", (req, res) => {
