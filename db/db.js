@@ -227,12 +227,17 @@ exports.getEmail = function(email) {
     });
 };
 
-exports.searchByKeywords = function(keyword) {
-    const q = `SELECT user_id FROM keywords WHERE keyword LIKE '%$1%';`;
+exports.searchKeywords = function(keyword) {
+    const q = `SELECT * FROM keywords WHERE (keyword1 LIKE ('%' || $1 || '%') OR keyword2 LIKE ('%' || $1 || '%') OR keyword3 LIKE ('%' || $1 || '%') OR keyword4 LIKE ('%' || $1 || '%') OR keyword5 LIKE ('%' || $1 || '%'));`;
     const params = [keyword];
-    return db.query(q, params).then(results => {
-        return results.rows;
-    });
+    return db
+        .query(q, params)
+        .then(results => {
+            return results.rows;
+        })
+        .catch(err => {
+            console.log("searching keywords Sql Error is:" + err);
+        });
 };
 
 //USE IT FOR SEARCH 2!!!

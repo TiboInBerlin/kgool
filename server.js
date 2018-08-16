@@ -45,17 +45,23 @@ app.get("/welcome", (req, res) => {
 });
 
 app.post("/welcome", (req, res) => {
-    if (req.body.search == "") {
+console.log(req.body.suche);
+    if (req.body.suche == "") {
         res.redirect("/welcome"); // if the user has one empty field, we redirect user to register page
     } else {
-        db.searchByKeywords(req.body.search).then(results => {
+        db.searchKeywords(req.body.suche).then(results => {
             //remember: the result is ALWAYS an array!
-            let x = results;
+            //let x = results;
+console.log(results);
+
+
             if (results.length == 0) {
                 res.redirect("/welcome");
                 console.log("no results for the search!");
             } else {
-                res.redirect("/profileProducer")
+                req.body.suche = req.session.suche;
+                return (results);
+                res.redirect("/login");
                 /*res.render("producerslist", {
                     userData: results
                 });*/
