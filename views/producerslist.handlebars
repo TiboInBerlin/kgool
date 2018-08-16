@@ -1,10 +1,33 @@
 <h1>This is the list of producers you searched for</h1>
 
-<form method="get">
+
     <ul>
-<p>Logo: {{userData.logo}} </p>
-<p>Firmenname: {{userData.firmenname}} </p>
-<p>Stadt: {{userData.stadt}} </p>
-<p>Webseite: {{userData.webseite}} </p>
+        {{#each content}}
+<li>Logo: {{this.logo}} </li>
+<li>Firmenname: <a href="./presentationProducerSideRender/{{this.firmenname}}">{{this.firmenname}}</a> </li>
+<li>Stadt: {{this.stadt}} </li>
+<li>Webseite: {{this.webseite}} </li>
+{{/each}}
 </ul>
-<form method="get">
+
+
+<h1>This is the list of signers</h1>
+
+
+
+<ul>
+    {{#each content}}
+{{#if this.url}}
+    {{#if this.city}}
+<li><a href="{{this.url}}">{{this.first_name}} {{this.last_name}}</a>  {{this.age}} <a href="./signers/{{this.city}}">{{this.city}}</a></li>
+    {{else}}
+<li><a href="{{this.url}}">{{this.first_name}} {{this.last_name}}</a>  {{this.age}}</li>
+    {{/if}}
+    {{else}}
+    {{#if this.city}}
+<li><{{this.first_name}} {{this.last_name}} {{this.age}} <a href="./signers/{{this.city}}">{{this.city}}</a></li>
+    {{/if}}
+<li><{{this.first_name}} {{this.last_name}} {{this.age}}</li>
+{{/if}}
+{{/each}}
+</ul>

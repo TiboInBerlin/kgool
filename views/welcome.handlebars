@@ -3,16 +3,18 @@
 
 </header>
 <main>
-            <h1>Gastronomie Produkthersteller finden und verbinden</h1>
-            <form action ="/welcome" method="post">
+
+            <img src="./images/Kgool-Logo2.png" alt="Suche Logo" class ="homeimage" />
+            <h1 id="titelsuche">Gastronomie Produkthersteller finden und verbinden</h1>
+            <form action ="/welcome" method="post" id="suchfield">
             <input id="suche" type="text" name="suche" placeholder="Suche nach Stichworte">
+            <br>
             <button id="button" type="submit">Hersteller finden!</button>
             </form>
-                <p>Ergebnis sollte so aussehen: https://www.wlw.de/de/firma/tchibo-coffee-service-gmbh-457758?category_id=75005&q=Kaffeeautomaten</p>
 
 </main>
         <footer>
-            <p>Über Uns / Datenschutz / Contact / Einwilligungsfreigabe {{>logout}}<p>
+            <div id="footerlink">  Über Uns   |   Datenschutz  |   Contact   |   Einwilligungsfreigabe <div>
 
         </footer>
 

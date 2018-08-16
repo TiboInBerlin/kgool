@@ -47,13 +47,13 @@ app.get("/welcome", (req, res) => {
 app.post("/welcome", (req, res) => {
     console.log(req.body.suche);
     let producerInfo;
-    let producerIds=[];
+    let producerIds = [];
     if (req.body.suche == "") {
         res.redirect("/welcome"); // if the user has one empty field, we redirect user to register page
     } else {
         db.searchKeywords(req.body.suche).then(results => {
             //remember: the result is ALWAYS an array!
-             producerInfo = results;
+            producerInfo = results;
             console.log("prodinfo", producerInfo);
             if (results.length == 0) {
                 res.redirect("/welcome");
@@ -62,13 +62,14 @@ app.post("/welcome", (req, res) => {
                 //req.body.suche = req.session.suche;
                 //console.log("suchebody",results);
                 for (var i = 0; i < results.length; i++) {
-                    producerIds.push(results[i].user_id)
+                    producerIds.push(results[i].user_id);
                 }
                 db.getProducersInfosByIds(producerIds).then(results2 => {
-                    console.log("results getProducers are : ", results2);
-                    console.log("producerinfo", producerInfo);
+                    //console.log("results getProducers are : ", results2);
+                    //console.log("producerinfo", producerInfo);
                     res.render("producerslist", {
-                        userData: results2
+                        userData: results2,
+                        content: results2
                     });
                 });
             }
@@ -408,6 +409,18 @@ app.get("/profileProducer", (req, res) => {
             userData: results
         });
     });
+});
+
+app.get("/presentationProducerSideRender/tibo", (req, res) => {
+    //in the get, i ahve always to use a page! that s why: /login
+
+    res.render("presentationProducerSidetibo");
+});
+
+app.get("/presentationProducerSideRender/mahmoudalaacompany", (req, res) => {
+    //in the get, i ahve always to use a page! that s why: /login
+
+    res.render("presentationProducerSidemahmoudalaacompany");
 });
 
 app.get("/presentationProducerSideRender", (req, res) => {
