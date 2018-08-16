@@ -1,13 +1,9 @@
 <header>
-<img src="./images/Kgool-logo2.png" alt="Kgool Logo" class ="homeimage" />
+{{>navprofilecustomer}}
 
 </header>
 <div class="navandmain">
-<nav>
-<a id="customerinfo" href="/profileCustomer">Information</a> <br>
-<a id="favoritessuppliersinfo" href="/lieblingsfirmen">Meine lieblingsfirmen</a> <br>
-<a id="searchlink" href="/welcome">Firma Suchen</a>
-</nav>
+
 <main>
 <form method="post">
     <p>Vorname: <input type="text" name="firstname" value ="{{userData.vorname}}" id="firstname"> </p>

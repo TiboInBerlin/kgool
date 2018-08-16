@@ -13,6 +13,12 @@ header {
     justify-content: space-between;
 }
 
+navandmainprofilecustomer{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
 /* .navandmain{
 display:flex;
 flex-direction: row;
@@ -152,7 +158,7 @@ footer {
 }
 
 h3 {
-    color: red;
+
 }
 
 button {

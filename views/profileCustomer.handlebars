@@ -1,27 +1,22 @@
 <header>
-<img src="./images/Kgool-logo2.png" alt="Kgool Logo" class ="homeimage" />
+{{>navprofilecustomer}}
 
 </header>
-<div class="navandmain">
-<nav>
-<a id="customerinfo" href="/profileCustomer">Information</a> <br>
-<a id="favoritessuppliersinfo" href="/lieblingsfirmen">Meine lieblingsfirmen</a> <br>
-<a id="searchlink" href="/welcome">Firma Suchen</a>
-</nav>
+<div class="navandmainprofilecustomer">
 <main>
 <form method="get">
-    <h3>PROFILE CUSTOMER: Kundeninformation page will be display all info herunder and will have a link to edit all info"</h3>
-<a id="editprofilecustomerlink" href="/editProfileCustomer">Edit Profile Customer</a>
-    <p>Vorname: {{userData.vorname}} </p>
-    <p>Nachname: {{userData.nachname}} </p>
-    <p>email: {{userData.email}} </p>
-    <p>Benutzername: {{userData.benutzername}} </p>
+<h1>Mein Profil</h1>
+<br>
+    <p><b>Vorname:  </b>{{userData.vorname}}</p>
+    <p><b>Nachname:  </b> {{userData.nachname}} </p>
+    <p><b>email:  </b> {{userData.email}} </p>
+    <p><b>Benutzername:  </b> {{userData.benutzername}} </p>
 </form>
 
 </main>
 </div>
 
 <footer>
-    <p>Über Uns / Datenschutz / Contact / Einwilligungsfreigabe {{>logout}}<p>
+    <p>  Über Uns   |   Datenschutz  |   Contact   |   Einwilligungsfreigabe                <p> {{>logout}}
 
 </footer>
