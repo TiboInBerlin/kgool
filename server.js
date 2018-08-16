@@ -45,26 +45,32 @@ app.get("/welcome", (req, res) => {
 });
 
 app.post("/welcome", (req, res) => {
-console.log(req.body.suche);
+    console.log(req.body.suche);
+    let producerInfo;
+    let producerIds=[];
     if (req.body.suche == "") {
         res.redirect("/welcome"); // if the user has one empty field, we redirect user to register page
     } else {
         db.searchKeywords(req.body.suche).then(results => {
             //remember: the result is ALWAYS an array!
-            //let x = results;
-console.log(results);
-
-
+             producerInfo = results;
+            console.log("prodinfo", producerInfo);
             if (results.length == 0) {
                 res.redirect("/welcome");
-                console.log("no results for the search!");
+                console.log("no result for the search!");
             } else {
-                req.body.suche = req.session.suche;
-                return (results);
-                res.redirect("/login");
-                /*res.render("producerslist", {
-                    userData: results
-                });*/
+                //req.body.suche = req.session.suche;
+                //console.log("suchebody",results);
+                for (var i = 0; i < results.length; i++) {
+                    producerIds.push(results[i].user_id)
+                }
+                db.getProducersInfosByIds(producerIds).then(results2 => {
+                    console.log("results getProducers are : ", results2);
+                    console.log("producerinfo", producerInfo);
+                    res.render("producerslist", {
+                        userData: results2
+                    });
+                });
             }
         });
     }

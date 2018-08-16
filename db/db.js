@@ -242,9 +242,14 @@ exports.searchKeywords = function(keyword) {
 
 //USE IT FOR SEARCH 2!!!
 exports.getProducersInfosByIds = function(arrayOfIds) {
-    const query = `SELECT * FROM users WHERE id = ANY($1)`;
-    return db.query(query, [arrayOfIds]).then(results => {
-        console.log(results.rows);
-        return results.rows;
-    });
+    const query = `SELECT * FROM producers WHERE user_id = ANY ($1)`;
+    return db
+        .query(query, [arrayOfIds])
+        .then(results => {
+            console.log("results row producerinfo", results.rows);
+            return results.rows;
+        })
+        .catch(err => {
+            console.log("get producers info keywords Sql Error is:" + err);
+        });
 };

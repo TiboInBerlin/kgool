@@ -3,18 +3,17 @@ body {
     background-color: white;
     flex-direction: column;
     justify-content: flex-start;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 header {
-
     height: 21vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.navandmain{
+/* .navandmain{
 display:flex;
 flex-direction: row;
 justify-content: flex-start;
@@ -25,21 +24,97 @@ nav{
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
+} */
+
+/* //////// */
+/*  NAV-BAR */
+/* //////// */
+
+.nav-bar {
+    display: flex;
+    flex-direction: row;
+    background-color: #a9d4df;
+    top: 0;
+    z-index: 1;
+    position: fixed;
+    width: 100%;
+    height: 120px;
 }
 
-main {
+.left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+}
 
+.inner-center-up {
+    display: flex;
+    justify-content: center;
+    margin-left: -40px;
+    width: 100%;
+}
+
+.inner-center-up h1 {
+    margin-right: 20px;
+}
+
+.inner-center-down {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.inner-center-down a {
+    padding: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    width: 25%;
+}
+
+.left i {
+    margin-left: 50px;
+}
+.right i {
+    font-size: 30px;
+    margin: 20px;
+}
+
+.underline {
+    display: flex;
+    justify-content: center;
+    background-color: #a9d4df;
+}
+
+/* //////////////// */
+/*  NAV-BAR FINISH */
+/* //////////////// */
+
+main {
     height: 70vh;
-    flex-grow:1;
+    flex-grow: 1;
 }
 
 footer {
-
     height: 10vh;
 }
 
-h3{
-    color:red;
+h3 {
+    color: red;
 }
 
 button {
@@ -98,7 +173,6 @@ button:active {
 }
 
 .link {
-
 }
 
 .homeimage {
@@ -109,31 +183,26 @@ button:active {
 }
 
 .loginlink {
-
 }
 
 .registeruserlink {
-
 }
 
 .registerproducerlink {
-
 }
 
-.loginbox{
+.loginbox {
     display: flex;
     flex-direction: column;
 }
 
-#usernamelogin{
-
+#usernamelogin {
 }
 
-#passwordlogin{
-
+#passwordlogin {
 }
 
-#searchbar{
+#searchbar {
     width: 40vh;
     height: 5vh;
 }
