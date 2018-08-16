@@ -1,18 +1,12 @@
 <header>
-<img src="./images/Kgool-logo2.png" alt="Kgool Logo" class ="homeimage" />
+{{>navprofileproducer}}
 
 </header>
 <div class="navandmain">
-    <nav>
-    <a id="producerinfo" href="/profileProducer">Information</a> <br>
 
-    <a id="favoritesinfo" href="/Favoriten">Interessenten</a> <br>
-    <a id="presentationlink" href="/presentationProducerSide">Präsentation von meiner Firma</a>
-    </nav>
 <main>
 <form method="get">
-    <h3>PROFILE PRODUCER</h3>
-<a id="editprofileproducerlink" href="/editProfileProducer">Edit Profile Producer</a>
+    <h3>PROFILE VON {{userData.vorname}} {{userData.nachname}} VON {{userData.firmenname}} </h3>
     <p>Vorname: {{userData.vorname}} </p>
     <p>Nachname: {{userData.nachname}} </p>
     <p>email: {{userData.email}} </p>

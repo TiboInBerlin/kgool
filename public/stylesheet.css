@@ -19,6 +19,12 @@ navandmainprofilecustomer{
     justify-content: flex-start;
 }
 
+navandmainprofileproducer{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
 /* .navandmain{
 display:flex;
 flex-direction: row;
