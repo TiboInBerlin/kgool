@@ -279,7 +279,7 @@ height: 20vh;
 width: 35vh;
 }
 
-#uberuns{
+#uberunspraesi{
 height: 20vh;
 
 }
@@ -289,5 +289,41 @@ height: 20vh;
 }
 
 #katalog{
-    
+
+}
+
+#contactedit{
+height: 20vh;
+width: 35vh;
+}
+
+#uberunsedit{
+height: 20vh;
+
+}
+
+#uberuns{
+width: 40vh;
+height: 15vh;
+}
+
+#stichworteedit{
+
+}
+
+#katalogedit{
+
+}
+
+ul > li{
+    style: none;
+
+}
+
+#displaysearch{
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    width: 90vw;
+    flex-wrap: wrap;
 }

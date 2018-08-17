@@ -5,8 +5,10 @@
 </header>
 
 <main>
-    <h1>Ihre persönliche Präsentation Seite</h1>
+    <h1>Präsentation Seite von {{userData.firmenname}} bearbeiten</h1>
 <form method="post">
+    <div class="presentation">
+        <div id="anschriftedit">
     <p>Logo: <input type="text" name="logo" value="{{userData.logo}}" id ="logourl"> </p>
     <p>Firmenname: <input type="text" name="firmenname" value="{{userData.firmenname}}" id ="companyname"> </p>
     <p>Steuernummer: <input type="text" name="steuernummer" value="{{userData.steuernummer}}" id ="steuernummer"> </p>
@@ -15,18 +17,29 @@
     <p>Stadt: <input type="text" name="stadt" value="{{userData.stadt}}" id ="stadt"> </p>
     <p>Bundesland: <input type="text" name="bundesland" value="{{userData.bundesland}}" id ="bundesland"> </p>
     <p>Land: <input type="text" name="land" value="{{userData.land}}" id ="land"> </p>
+        </div>
+        <div id="contactedit">
     <p>Telefon: <input type="text" name="telefon" value="{{userData.telefon}}" id ="telefon"> </p>
     <p>Fax: <input type="text" name="fax" value="{{userData.fax}}" id ="fax"> </p>
     <p>Webseite: <input type="text" name="webseite" value="{{userData.webseite}}" id ="webseite"> </p>
+        </div>
+        <div id="uberunsedit">
     <p>Über Uns: <input type="text" name="uberuns" value="{{userData.uberuns}}" id ="uberuns"> </p>
+        </div>
+        <div id="stichworteedit">
     <p>Stichworte: <input type="text" name="keyword1" value="{{keywords.keyword1}}" id ="keyword1"> </p>
     <p><input type="text" name="keyword2" value="{{keywords.keyword2}}" id ="keyword2"> </p>
     <p><input type="text" name="keyword3" value="{{keywords.keyword3}}" id ="keyword3"> </p>
     <p><input type="text" name="keyword4" value="{{keywords.keyword4}}" id ="keyword4"> </p>
     <p><input type="text" name="keyword5" value="{{keywords.keyword5}}" id ="keyword5"> </p>
+        </div>
+        <div id="katalogedit">
     <p>Katalog: <input type="text" name="katalog" value="{{userData.katalog}}" id ="katalog"></p>
-</br> </br>
-    <button id="button" type="submit">Präsentation ändern</button>
+<button id="button" type="submit">Präsentation ändern</button>
+        </div>
+</div>
+
+
 </form>
 
 </main>

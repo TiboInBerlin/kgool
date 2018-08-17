@@ -1,11 +1,25 @@
-<h1>This is the list of producers you searched for</h1>
 
+<header>
+{{>navergebnissuche}}
 
+</header>
+
+<h1>Ergebnisse zu gesuchten Lieferanten</h1>
+
+<div id="displaysearch">
     <ul>
         {{#each content}}
-<li>Logo: {{this.logo}} </li>
-<li>Firmenname: <a href="./presentationProducerSideRender/{{this.firmenname}}">{{this.firmenname}}</a> </li>
-<li>Stadt: {{this.stadt}} </li>
-<li>Webseite: {{this.webseite}} </li>
+
+<li>Firmenname: <a href="./presentationProducerSideRender/{{this.firmenname}}"><b>{{this.firmenname}}</b></a> </p>
+<p>Stadt: {{this.stadt}} </p>
+<p>Webseite:<a href="{{this.webseite}}"> {{this.webseite}} </a></p>
+
+<br>
 {{/each}}
 </ul>
+</div>
+
+<footer>
+    <p>  Über Uns   |   Datenschutz  |   Contact   |   Einwilligungsfreigabe                <p> {{>logout}}
+
+</footer>
