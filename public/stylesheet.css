@@ -251,3 +251,43 @@ button:active {
     width: 40vh;
     height: 5vh;
 }
+
+.presentation{
+display: flex;
+flex-direction: column;
+height: 65vh;
+width: 90vw;
+flex-wrap: wrap;
+}
+
+#titelpresfirma{
+height: 5vh;
+}
+
+#anschrift{
+height: 30vh;
+width: 35vh;
+}
+
+#cityplz{
+    display: flex;
+width: 35vh;
+}
+
+#contact{
+height: 20vh;
+width: 35vh;
+}
+
+#uberuns{
+height: 20vh;
+
+}
+
+#stichworte{
+
+}
+
+#katalog{
+    
+}

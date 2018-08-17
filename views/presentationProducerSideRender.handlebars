@@ -1,42 +1,54 @@
 <header>
-{{>navprofilecustomer}}
+{{>navprofileproducer}}
 
 </header>
-<div class="navandmain">
-    <nav>
-    <a id="producerinfo" href="/profileProducer">Information</a> <br>
 
-    <a id="favoritesinfo" href="/Favoriten">Interessenten</a> <br>
-    <a id="presentationlink" href="/presentationProducerSideRender">Präsentation von meiner Firma</a>
-    </nav>
 <main>
 <form method="get">
-    <h3>Präsentation von Firma {{userData.firmenname}}</h3>
-<a id="editpresentationproducerlink" href="/presentationProducerSide">Präsentation Seite bearbeiten</a>
-    <p>Logo: {{userData.logo}} </p>
-    <p>Firmenname: {{userData.firmenname}} </p>
-    <p>Steuernummer: {{userData.steuernummer}} </p>
-    <p>Strasse: {{userData.strasse}} </p>
-    <p>PLZ: {{userData.plz}} </p>
-    <p>Stadt: {{userData.stadt}} </p>
-    <p>Bundesland: {{userData.bundesland}} </p>
-    <p>Land: {{userData.land}} </p>
+    <h3 id="titelpresfirma">Präsentation von Firma {{userData.firmenname}}</h3>
+<div class="presentation">
+
+    <div id="anschrift"><b> Anschrift:</b>
+    <h4>{{userData.firmenname}} </h4>
+    <p>{{userData.strasse}} </p>
+
+        <div id="cityplz">
+            {{userData.plz}}
+            {{userData.stadt}}
+        </div>
+
+        {{userData.land}}
+    </div>
+
+    <div id="contact"> <b>Contact:</b>
     <p>Telefon: {{userData.telefon}} </p>
     <p>Fax: {{userData.fax}} </p>
-    <p>Webseite: {{userData.webseite}} </p>
-    <p>Über Uns: {{userData.uberuns}} </p>
-    <p>Stichworte: {{keywords.keyword1}} </p>
-    <p>{{keywords.keyword2}}</p>
-    <p>{{keywords.keyword3}}</p>
-    <p>{{keywords.keyword4}}</p>
-    <p>{{keywords.keyword5}}</p>
-    <p>Katalog: {{userData.katalog}} </p>
+    <p>Webseite: <a href={{userData.webseite}}>{{userData.webseite}}</a></p>
+    </div>
+
+    <div id="uberuns">
+    <p><b>Über Uns:</b> {{userData.uberuns}} </p>
+    </div>
+
+    <div id="stichworte">
+    <p><b>Stichworte:</b> {{keywords.keyword1}} </p>
+    <p>{{keywords.keyword2}} {{keywords.keyword3}}</p>
+    <p>{{keywords.keyword4}} {{keywords.keyword5}}</p>
+    </div>
+
+    <div id="katalog">
+    <p><b>Katalog:</b> <a href={{userData.katalog}}> <i class="fas fa-book"></i></a> </p>
+    </div>
+
+</div>
+
+
 </form>
 
 </main>
-</div>
+
 
 <footer>
-    <p>Über Uns / Datenschutz / Contact / Einwilligungsfreigabe {{>logout}}<p>
+   <div id="footerlink"> Über Uns   |   Datenschutz  |   Contact   |   Einwilligungsfreigabe        |      {{>logout}}</div>
 
 </footer>
